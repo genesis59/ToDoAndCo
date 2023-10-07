@@ -1,0 +1,8 @@
+app:
+  form:
+    user:
+      name: Nom d'utilisateur
+      password: Mot de passe
+      confirm_password: Tapez le mot de passe à nouveau
+      error_password: Les deux mots de passe doivent correspondre.
+      email: Adresse email

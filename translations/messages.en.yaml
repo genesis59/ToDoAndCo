@@ -1,0 +1,8 @@
+app:
+  form:
+    user:
+      name: User name
+      password: Password
+      confirm_password: Confirm password
+      error_password: The two passwords must match.
+      email: Email
