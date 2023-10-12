@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
  * @ORM\Table("task")
  */
 class Task
@@ -89,5 +89,17 @@ class Task
     public function toggle($flag)
     {
         $this->isDone = $flag;
+    }
+
+    public function isIsDone(): ?bool
+    {
+        return $this->isDone;
+    }
+
+    public function setIsDone(bool $isDone): self
+    {
+        $this->isDone = $isDone;
+
+        return $this;
     }
 }

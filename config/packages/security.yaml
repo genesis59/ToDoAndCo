@@ -15,8 +15,6 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-# ours
-            anonymous: ~
             pattern: ^/
             form_login:
                 login_path: login
@@ -24,9 +22,7 @@ security:
                 always_use_default_target_path:  true
                 default_target_path:  /
             logout: ~
-# endours
             lazy: true
-#            theirs
 #            provider: users_in_memory
 
             # activate different ways to authenticate
