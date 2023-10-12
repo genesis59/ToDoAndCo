@@ -8,20 +8,18 @@ security:
             entity:
                 class: App\Entity\User
                 property: username
-
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             pattern: ^/
-            form_login:
-                login_path: login
-                check_path: login_check
-                always_use_default_target_path:  true
-                default_target_path:  /
-            logout: ~
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
             lazy: true
+            custom_authenticator: App\Security\LoginFormAuthenticator
 #            provider: users_in_memory
 
             # activate different ways to authenticate
@@ -31,9 +29,9 @@ security:
             # switch_user: true
 
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/users, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_USER }
+#        - { path: ^/, roles: ROLE_USER }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
