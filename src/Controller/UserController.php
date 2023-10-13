@@ -6,19 +6,17 @@ use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends AbstractController
 {
-    private ManagerRegistry $managerRegistry;
-
-    public function __construct(ManagerRegistry $managerRegistry)
+    public function __construct(private readonly ManagerRegistry $managerRegistry)
     {
-        $this->managerRegistry = $managerRegistry;
     }
+
     #[Route(path: '/users', name: 'user_list')]
     public function list(): Response
     {
@@ -26,7 +24,7 @@ class UserController extends AbstractController
     }
 
     #[Route(path: '/users/create', name: 'user_create')]
-    public function create(Request $request,UserPasswordHasherInterface $userHasher): Response
+    public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -35,7 +33,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->managerRegistry->getManager();
-            $password = $userHasher->hashPassword($user, $user->getPassword());
+            $password = $userPasswordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
 
             $em->persist($user);
@@ -50,14 +48,14 @@ class UserController extends AbstractController
     }
 
     #[Route(path: '/users/{id}/edit', name: 'user_edit')]
-    public function edit(User $user, Request $request, UserPasswordHasherInterface $userHasher): Response
+    public function edit(User $user, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $userHasher->hashPassword($user, $user->getPassword());
+            $password = $userPasswordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
 
             $this->managerRegistry->getManager()->flush();
