@@ -20,18 +20,14 @@ class TaskController extends AbstractController
         $this->managerRegistry = $managerRegistry;
     }
 
-    /**
-     * @Route("/tasks", name="task_list")
-     */
-    public function listAction(): Response
+    #[Route(path: '/tasks', name: 'task_list')]
+    public function list(): Response
     {
         return $this->render('task/list.html.twig', ['tasks' => $this->managerRegistry->getRepository(Task::class)->findAll()]);
     }
 
-    /**
-     * @Route("/tasks/create", name="task_create")
-     */
-    public function createAction(Request $request): Response
+    #[Route(path: '/tasks/create', name: 'task_create')]
+    public function create(Request $request): Response
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -52,10 +48,8 @@ class TaskController extends AbstractController
         return $this->render('task/create.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/tasks/{id}/edit", name="task_edit")
-     */
-    public function editAction(Task $task, Request $request)
+    #[Route(path: '/tasks/{id}/edit', name: 'task_edit')]
+    public function edit(Task $task, Request $request)
     {
         $form = $this->createForm(TaskType::class, $task);
 
@@ -75,10 +69,8 @@ class TaskController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/tasks/{id}/toggle", name="task_toggle")
-     */
-    public function toggleTaskAction(Task $task): Response
+    #[Route(path: '/tasks/{id}/toggle', name: 'task_toggle')]
+    public function toggleTask(Task $task): Response
     {
         $task->toggle(!$task->isDone());
         $this->managerRegistry->getManager()->flush();
@@ -88,10 +80,8 @@ class TaskController extends AbstractController
         return $this->redirectToRoute('task_list');
     }
 
-    /**
-     * @Route("/tasks/{id}/delete", name="task_delete")
-     */
-    public function deleteTaskAction(Task $task):Response
+    #[Route(path: '/tasks/{id}/delete', name: 'task_delete')]
+    public function deleteTask(Task $task):Response
     {
         $em = $this->managerRegistry->getManager();
         $em->remove($task);
