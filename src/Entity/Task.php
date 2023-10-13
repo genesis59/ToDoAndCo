@@ -41,12 +41,11 @@ class Task
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isDone;
+    private bool $isDone = false;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->isDone = false;
     }
 
     public function getId()
