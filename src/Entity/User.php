@@ -29,12 +29,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=25, unique=true)
      */
     #[Assert\NotBlank(message: "Vous devez saisir un nom d'utilisateur.")]
-    private $username;
+    private string $username = '';
 
     /**
      * @ORM\Column(type="string", length=64)
      */
-    private $password;
+    private ?string $password = null;
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
-    public function setUsername($username)
+    public function setUsername(string $username): void
     {
         $this->username = $username;
     }
@@ -68,7 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword($password)
+    public function setPassword(?string $password): void
     {
         $this->password = $password;
     }
@@ -78,7 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }

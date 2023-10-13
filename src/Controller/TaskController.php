@@ -45,7 +45,7 @@ class TaskController extends AbstractController
     }
 
     #[Route(path: '/tasks/{id}/edit', name: 'task_edit')]
-    public function edit(Task $task, Request $request)
+    public function edit(Task $task, Request $request): Response
     {
         $form = $this->createForm(TaskType::class, $task);
 
