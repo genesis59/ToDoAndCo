@@ -18,7 +18,7 @@ class UserType extends AbstractType
     {
         $this->translator = $translator;
     }
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('username', TextType::class, ['label' => $this->translator->trans('app.form.user.name')])
