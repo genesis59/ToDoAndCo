@@ -18,7 +18,6 @@ return static function (RectorConfig $rectorConfig): void {
         SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
         LevelSetList::UP_TO_PHP_81,
         DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
-        DoctrineSetList::DOCTRINE_CODE_QUALITY,
 //        SetList::CODE_QUALITY,
 //        SetList::CODING_STYLE,
 //        SetList::TYPE_DECLARATION
