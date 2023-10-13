@@ -16,10 +16,10 @@ return static function (RectorConfig $rectorConfig): void {
         SymfonySetList::SYMFONY_CODE_QUALITY,
         SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
         SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-        LevelSetList::UP_TO_PHP_81,
+        LevelSetList::UP_TO_PHP_82,
         DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
-//        SetList::CODE_QUALITY,
-//        SetList::CODING_STYLE,
-//        SetList::TYPE_DECLARATION
+        SetList::CODE_QUALITY,
+        SetList::CODING_STYLE,
+        SetList::TYPE_DECLARATION
     ]);
 };
