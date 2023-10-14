@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\Symfony\Set\SensiolabsSetList;
 use Rector\Symfony\Set\SymfonySetList;
 use Rector\Config\RectorConfig;
 use Rector\Set\ValueObject\LevelSetList;
@@ -18,6 +19,7 @@ return static function (RectorConfig $rectorConfig): void {
         SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
         LevelSetList::UP_TO_PHP_82,
         DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
+        SensiolabsSetList::ANNOTATIONS_TO_ATTRIBUTES,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         SetList::TYPE_DECLARATION
