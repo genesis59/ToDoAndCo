@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Task;
 use App\Repository\TaskRepository;
+use App\Repository\UserRepository;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -46,7 +47,7 @@ final class TaskFactory extends ModelFactory
             'content' => self::faker()->text(),
             'createdAt' => self::faker()->dateTime(),
             'isDone' => self::faker()->boolean(),
-            'title' => self::faker()->sentence(),
+            'title' => self::faker()->sentence()
         ];
     }
 
