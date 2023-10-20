@@ -3,17 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Entity\User;
 use App\Form\TaskType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TaskController extends AbstractController
 {
-    public function __construct(private readonly ManagerRegistry $managerRegistry)
-    {
+    public function __construct(
+        private readonly ManagerRegistry $managerRegistry,
+        private readonly TranslatorInterface $translator
+    ) {
     }
 
     #[Route(path: '/tasks', name: 'task_list')]
@@ -27,20 +31,17 @@ class TaskController extends AbstractController
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            $user = $this->getUser();
+            $task->setOwner($user);
             $em = $this->managerRegistry->getManager();
-
             $em->persist($task);
             $em->flush();
-
-            $this->addFlash('success', 'La tâche a été bien été ajoutée.');
-
+            $this->addFlash('success', $this->translator->trans('app.flashes.task.created'));
             return $this->redirectToRoute('task_list');
         }
-
         return $this->render('task/create.html.twig', ['form' => $form->createView()]);
     }
 
@@ -48,17 +49,12 @@ class TaskController extends AbstractController
     public function edit(Task $task, Request $request): Response
     {
         $form = $this->createForm(TaskType::class, $task);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->managerRegistry->getManager()->flush();
-
-            $this->addFlash('success', 'La tâche a bien été modifiée.');
-
+            $this->addFlash('success', $this->translator->trans('app.flashes.task.updated'));
             return $this->redirectToRoute('task_list');
         }
-
         return $this->render('task/edit.html.twig', [
             'form' => $form->createView(),
             'task' => $task,
@@ -71,7 +67,7 @@ class TaskController extends AbstractController
         $task->toggle(!$task->isDone());
         $this->managerRegistry->getManager()->flush();
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        $this->addFlash('success', $this->translator->trans('app.flashes.task.is_done', ['%task%' => $task->getTitle()]));
 
         return $this->redirectToRoute('task_list');
     }
@@ -83,7 +79,7 @@ class TaskController extends AbstractController
         $em->remove($task);
         $em->flush();
 
-        $this->addFlash('success', 'La tâche a bien été supprimée.');
+        $this->addFlash('success', $this->translator->trans('app.flashes.task.deleted'));
 
         return $this->redirectToRoute('task_list');
     }

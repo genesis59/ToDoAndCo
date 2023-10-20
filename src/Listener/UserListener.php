@@ -15,7 +15,14 @@ readonly class UserListener
 
     public function prePersist(User $user, LifecycleEventArgs $args): void
     {
-        $user->setRoles(['ROLE_USER']);
+        if (!count($user->getRoles())) {
+            $user->setRoles([User::ROLE_USER]);
+        }
+        $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
+    }
+
+    public function preUpdate(User $user, LifecycleEventArgs $args): void
+    {
         $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
     }
 }

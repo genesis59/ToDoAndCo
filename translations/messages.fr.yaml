@@ -1,4 +1,13 @@
 app:
+  flashes:
+    user:
+      created: L'utilisateur a bien été ajouté.
+      updated: L'utilisateur a bien été modifié.
+    task:
+      created: La tâche a été bien été ajoutée.
+      updated: La tâche a bien été modifiée.
+      deleted: La tâche a bien été supprimée.
+      is_done: La tâche %task% a bien été marquée comme faite.
   form:
     user:
       name: Nom d'utilisateur
@@ -6,3 +15,8 @@ app:
       confirm_password: Tapez le mot de passe à nouveau
       error_password: Les deux mots de passe doivent correspondre.
       email: Adresse email
+      role: rôle de l'utilisateur
+      role_admin: Administrateur
+      role_user: Simple utilisateur
+  exceptions:
+    info_dev_role_must_be_string: "La configuration des paramètres de roles doivent être de type string."
