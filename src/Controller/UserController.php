@@ -6,45 +6,37 @@ use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserController extends AbstractController
 {
-    private ManagerRegistry $managerRegistry;
-
-    public function __construct(ManagerRegistry $managerRegistry)
-    {
-        $this->managerRegistry = $managerRegistry;
+    public function __construct(
+        private readonly ManagerRegistry $managerRegistry,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
-    /**
-     * @Route("/users", name="user_list")
-     */
-    public function listAction()
+
+    #[Route(path: '/users', name: 'user_list')]
+    public function list(): Response
     {
         return $this->render('user/list.html.twig', ['users' => $this->managerRegistry->getRepository(User::class)->findAll()]);
     }
 
-    /**
-     * @Route("/users/create", name="user_create")
-     */
-    public function createAction(Request $request,UserPasswordHasherInterface $passwordEncoder)
+    #[Route(path: '/users/create', name: 'user_create')]
+    public function create(Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->managerRegistry->getManager();
-            $password = $passwordEncoder->hashPassword($user, $user->getPassword());
-            $user->setPassword($password);
-
+            $user->setRoles([$form->get('roles')->getData()]);
             $em->persist($user);
             $em->flush();
-
-            $this->addFlash('success', "L'utilisateur a bien été ajouté.");
+            $this->addFlash('success', $this->translator->trans('app.flashes.user.created'));
 
             return $this->redirectToRoute('user_list');
         }
@@ -52,22 +44,15 @@ class UserController extends AbstractController
         return $this->render('user/create.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/users/{id}/edit", name="user_edit")
-     */
-    public function editAction(User $user, Request $request, UserPasswordHasherInterface $passwordEncoder)
+    #[Route(path: '/users/{id}/edit', name: 'user_edit')]
+    public function edit(User $user, Request $request): Response
     {
         $form = $this->createForm(UserType::class, $user);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->hashPassword($user, $user->getPassword());
-            $user->setPassword($password);
-
+            $user->setRoles([$form->get('roles')->getData()]);
             $this->managerRegistry->getManager()->flush();
-
-            $this->addFlash('success', "L'utilisateur a bien été modifié");
+            $this->addFlash('success', $this->translator->trans('app.flashes.user.updated'));
 
             return $this->redirectToRoute('user_list');
         }
