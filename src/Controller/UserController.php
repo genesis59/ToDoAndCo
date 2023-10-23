@@ -38,7 +38,7 @@ class UserController extends AbstractController
             $em->flush();
             $this->addFlash('success', $this->translator->trans('app.flashes.user.created'));
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('user/create.html.twig', ['form' => $form->createView()]);
