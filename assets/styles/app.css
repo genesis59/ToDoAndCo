@@ -19,6 +19,7 @@ body, html {
     background-color: var(--custom-white);
     font-family: "times", sans-serif;
     font-size: 1.1rem;
+    height: 100vh;
 }
 
 /* Override bootstrap*/
@@ -27,6 +28,7 @@ body, html {
 }
 .nav-link {
     color: var(--custom-grey-green-light);
+    transition: 0.6s;
 }
 .nav-link:hover {
     color: var(--custom-white);
@@ -49,6 +51,10 @@ body, html {
     width: 2.5rem;
 }
 .navbar-toggler {
+    background-color: var(--custom-grey-green-medium);
+    transition: 0.6s;
+}
+.navbar-toggler:hover {
     background-color: var(--custom-grey-green-light);
 }
 /* END Override bootstrap*/
@@ -96,7 +102,13 @@ a {
     padding: 9px;
     color: #333;
 }
-
+.fake-div-footer {
+    height: 5rem;
+}
 footer {
-    margin: 50px 0;
+    position: fixed;
+    height: 5rem;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
