@@ -22,9 +22,18 @@ app:
   exceptions:
     info_dev_role_must_be_string: "La configuration des paramètres de roles doivent être de type string."
   twig:
+    page:
+      security:
+        login:
+          header_title: Connectez-vous à votre compte
+      default:
+        index:
+          header_title: Bienvenue sur Todo List, l'application vous permettant de gérer l'ensemble de vos tâches sans effort !
     component:
       navbar:
         login: Se connecter
         signup: Créer un utilisateur
         logout: Se déconnecter
+      header:
+        default_message: Ne pas oublier d'où l'on vient, c'est savoir où l'on va.
 

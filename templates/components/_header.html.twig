@@ -1,0 +1,5 @@
+{% set my_title = my_title|default('app.twig.component.header.default_message'|trans) %}
+<div class="slide-image">
+    <img src="{{ asset('img/todolist_homepage.jpg') }}" alt="todo list">
+    <h1>{{ my_title }}</h1>
+</div>
