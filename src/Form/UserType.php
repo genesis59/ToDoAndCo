@@ -37,18 +37,36 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username', TextType::class, ['label' => $this->translator->trans('app.form.user.name')])
+            ->add('username', TextType::class, [
+                'label' => $this->translator->trans('app.form.user.name'),
+                'label_attr' => ['class' => 'ps-1 mt-4'],
+                'attr' => ['class' => 'mt-1'],
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => $this->translator->trans('app.form.user.error_password'),
                 'required' => true,
-                'first_options' => ['label' => $this->translator->trans('app.form.user.password')],
-                'second_options' => ['label' => $this->translator->trans('app.form.user.confirm_password')],
+                'first_options' => [
+                    'label' => $this->translator->trans('app.form.user.password'),
+                    'label_attr' => ['class' => 'ps-1 mt-4'],
+                    'attr' => ['class' => 'mt-1'],
+                ],
+                'second_options' => [
+                    'label' => $this->translator->trans('app.form.user.confirm_password'),
+                    'label_attr' => ['class' => 'ps-1 mt-4'],
+                    'attr' => ['class' => 'mt-1'],
+                ],
             ])
-            ->add('email', EmailType::class, ['label' => $this->translator->trans('app.form.user.email')])
+            ->add('email', EmailType::class, [
+                'label' => $this->translator->trans('app.form.user.email'),
+                'label_attr' => ['class' => 'ps-1 mt-4'],
+                'attr' => ['class' => 'mt-1'],
+            ])
             ->add('roles', ChoiceType::class, [
                 'mapped' => false,
                 'label' => $this->translator->trans('app.form.user.role'),
+                'label_attr' => ['class' => 'ps-1 mt-4'],
+                'attr' => ['class' => 'mt-1'],
                 'expanded' => false,
                 'multiple' => false,
                 'data' => $this->getRoleData($options),

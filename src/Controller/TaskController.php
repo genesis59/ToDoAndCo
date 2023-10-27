@@ -40,8 +40,10 @@ class TaskController extends AbstractController
             $em->persist($task);
             $em->flush();
             $this->addFlash('success', $this->translator->trans('app.flashes.task.created'));
+
             return $this->redirectToRoute('task_list');
         }
+
         return $this->render('task/create.html.twig', ['form' => $form->createView()]);
     }
 
@@ -53,8 +55,10 @@ class TaskController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->managerRegistry->getManager()->flush();
             $this->addFlash('success', $this->translator->trans('app.flashes.task.updated'));
+
             return $this->redirectToRoute('task_list');
         }
+
         return $this->render('task/edit.html.twig', [
             'form' => $form->createView(),
             'task' => $task,

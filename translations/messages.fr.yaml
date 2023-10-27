@@ -1,4 +1,5 @@
 app:
+  name: TodoAndCo
   flashes:
     user:
       created: L'utilisateur a bien été ajouté.
@@ -10,13 +11,42 @@ app:
       is_done: La tâche %task% a bien été marquée comme faite.
   form:
     user:
-      name: Nom d'utilisateur
-      password: Mot de passe
-      confirm_password: Tapez le mot de passe à nouveau
+      name: Saisissez votre nom d'utilisateur
+      password: Saisissez votre mot de passe
+      confirm_password: Confirmez le mot de passe
       error_password: Les deux mots de passe doivent correspondre.
-      email: Adresse email
-      role: rôle de l'utilisateur
+      email: Saisissez votre adresse email
+      role: Choisissez un rôle
       role_admin: Administrateur
       role_user: Simple utilisateur
   exceptions:
     info_dev_role_must_be_string: "La configuration des paramètres de roles doivent être de type string."
+  twig:
+    page:
+      default:
+        index:
+          header_title: 'À vous de jouer : Explorez les sections disponibles pour gérer vos tâches avec succès !'
+          sub_title: Votre espace de gestion des tâches
+          button:
+            finished: Consulter la liste des tâches terminées
+            todo: Consulter la liste des tâches à faire
+            create: Créer une nouvelle tâche
+      user:
+        create:
+          submit: Soumettre la création
+          sub_title: Formulaire de création d'un utilisateur
+      security:
+        login:
+          header_title: Espace d'authentification
+          sub_title: Formulaire de connexion
+          email_label: Saisissez votre adresse email
+          password_label: Saisissez votre mot de passe
+          submit: Valider
+    component:
+      navbar:
+        login: Se connecter
+        signup: Créer un utilisateur
+        logout: Se déconnecter
+      header:
+        default_message: Ne pas oublier d'où l'on vient, c'est savoir où l'on va.
+

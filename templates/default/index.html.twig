@@ -1,14 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block header_title %}
-    <h1>Bienvenue sur Todo List, l'application vous permettant de gérer l'ensemble de vos tâches sans effort !</h1>
+{% block header_img %}
+    {% include 'components/_header.html.twig' with {'my_title': 'app.twig.page.default.index.header_title'|trans} %}
 {% endblock %}
-
 {% block body %}
-
-    <div class="row">
-        <a href="{{ path('task_create') }}" class="btn btn-success">Créer une nouvelle tâche</a>
-        <a href="{{ path('task_list') }}" class="btn btn-info">Consulter la liste des tâches à faire</a>
-        <a href="" class="btn btn-secondary">Consulter la liste des tâches terminées</a>
+    <h2 class="mt-4">{{ 'app.twig.page.default.index.sub_title'|trans }}</h2>
+    <div class="row mt-5 justify-content-between">
+        <div class="col-12 col-md-4 btn-section" data-url="{{ path('task_create') }}" id="btn-section-create">
+            {{ 'app.twig.page.default.index.button.create'|trans }}
+        </div>
+        <div class="col-12 col-md-4 btn-section" data-url="{{ path('task_list') }}" id="btn-section-todo">
+            {{ 'app.twig.page.default.index.button.todo'|trans }}
+        </div>
+        <div class="col-12 col-md-4 btn-section" data-url=""  id="btn-section-finished">
+            {{ 'app.twig.page.default.index.button.finished'|trans }}
+        </div>
     </div>
 {% endblock %}
