@@ -23,6 +23,14 @@ app:
     info_dev_role_must_be_string: "La configuration des paramètres de roles doivent être de type string."
   twig:
     page:
+      default:
+        index:
+          header_title: 'À vous de jouer : Explorez les sections disponibles pour gérer vos tâches avec succès !'
+          sub_title: Votre espace de gestion des tâches
+          button:
+            finished: Consulter la liste des tâches terminées
+            todo: Consulter la liste des tâches à faire
+            create: Créer une nouvelle tâche
       user:
         create:
           submit: Soumettre la création
@@ -34,9 +42,6 @@ app:
           email_label: Saisissez votre adresse email
           password_label: Saisissez votre mot de passe
           submit: Valider
-      default:
-        index:
-          header_title: Bienvenue sur Todo List, l'application vous permettant de gérer l'ensemble de vos tâches sans effort !
     component:
       navbar:
         login: Se connecter
