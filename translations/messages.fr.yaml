@@ -26,6 +26,10 @@ app:
       security:
         login:
           header_title: Connectez-vous à votre compte
+          sub_title: Formulaire de connexion
+          email_label: Saisissez votre adresse email
+          password_label: Saisissez votre mot de passe
+          submit: Valider
       default:
         index:
           header_title: Bienvenue sur Todo List, l'application vous permettant de gérer l'ensemble de vos tâches sans effort !
