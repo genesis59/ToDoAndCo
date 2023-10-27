@@ -25,11 +25,11 @@ app:
     page:
       user:
         create:
-          submit: Créer
+          submit: Soumettre la création
           sub_title: Formulaire de création d'un utilisateur
       security:
         login:
-          header_title: Connectez-vous à votre compte
+          header_title: Espace d'authentification
           sub_title: Formulaire de connexion
           email_label: Saisissez votre adresse email
           password_label: Saisissez votre mot de passe

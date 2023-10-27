@@ -17,9 +17,9 @@
         </div>
     {% endif %}
     <h2 class="mt-4">{{ 'app.twig.page.security.login.sub_title'|trans }}</h2>
-    <label class=" mt-4" for="inputEmail">{{ 'app.twig.page.security.login.email_label'|trans }}</label>
+    <label class="ps-1 mt-4" for="inputEmail">{{ 'app.twig.page.security.login.email_label'|trans }}</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mt-1" autocomplete="email" required autofocus>
-    <label class=" mt-4" for="inputPassword">{{ 'app.twig.page.security.login.password_label'|trans }}</label>
+    <label class="ps-1 mt-4" for="inputPassword">{{ 'app.twig.page.security.login.password_label'|trans }}</label>
     <input type="password" name="password" id="inputPassword" class="form-control mt-1" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
