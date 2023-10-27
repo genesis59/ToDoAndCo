@@ -11,18 +11,22 @@ app:
       is_done: La tâche %task% a bien été marquée comme faite.
   form:
     user:
-      name: Nom d'utilisateur
-      password: Mot de passe
-      confirm_password: Tapez le mot de passe à nouveau
+      name: Saisissez votre nom d'utilisateur
+      password: Saisissez votre mot de passe
+      confirm_password: Confirmez le mot de passe
       error_password: Les deux mots de passe doivent correspondre.
-      email: Adresse email
-      role: rôle de l'utilisateur
+      email: Saisissez votre adresse email
+      role: Choisissez un rôle
       role_admin: Administrateur
       role_user: Simple utilisateur
   exceptions:
     info_dev_role_must_be_string: "La configuration des paramètres de roles doivent être de type string."
   twig:
     page:
+      user:
+        create:
+          submit: Créer
+          sub_title: Formulaire de création d'un utilisateur
       security:
         login:
           header_title: Connectez-vous à votre compte

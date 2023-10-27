@@ -79,6 +79,11 @@ input:focus {
     border-color: var(--custom-grey-green-light-shadow)!important;
     box-shadow: 0 0 0 0.25rem var(--custom-grey-green-light-shadow)!important;
 }
+select:focus {
+    outline-color: var(--custom-grey-green-light-shadow)!important;
+    border-color: var(--custom-grey-green-light-shadow)!important;
+    box-shadow: 0 0 0 0.25rem var(--custom-grey-green-light-shadow)!important;
+}
 /* END Override bootstrap*/
 
 a {
