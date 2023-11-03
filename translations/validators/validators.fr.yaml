@@ -1,2 +1,28 @@
 validator:
   unique_entity: Désolé, cette valeur existe déjà.
+  user:
+    username:
+      not_blank: Le nom de l'utilisateur ne peut être vide
+      length_min_message: Le nom de l'utilisateur est trop court. Il doit avoir au minimum {{ limit }} caractère.|Le nom de l'utilisateur est trop court. Il doit avoir au minimum {{ limit }} caractères.
+      length_max_message: Le nom de l'utilisateur est trop long. Il doit avoir au maximum {{ limit }} caractère.|Le nom de l'utilisateur est trop long. IL doit avoir au maximum {{ limit }} caractères.
+      regex: Veuillez vous assurer d'utiliser uniquement des lettres (minuscules et majuscules), des caractères accentués, des espaces, des tirets et des apostrophes.
+    email:
+      email: Cette valeur n'est pas un email valide.
+      not_blank: Le champ email ne peut être vide
+      length_max_message: Le champ email est trop long. Il doit avoir au maximum {{ limit }} caractère.|Le champ email est trop long. IL doit avoir au maximum {{ limit }} caractères.
+      unique: Cette email existe déjà.
+    password:
+      not_blank: Le champ password ne peut être vide
+      not_compromised_password: Ce mot de passe a été divulgué lors d'une fuite de données, il ne doit plus être utilisé. Veuillez utiliser un autre mot de passe.
+      regex: Le mot de passe n'est pas valide. Il doit comporter entre 8 et 255 caractères dont 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial (-.,?;:§+!*$@%_).
+  task:
+    title:
+      not_blank: Le titre ne peut être vide
+      length_min_message: Le titre de la tâche est trop court. Il doit avoir au minimum {{ limit }} caractère.|Le titre de la tâche est trop court. Il doit avoir au minimum {{ limit }} caractères.
+      length_max_message: Le titre de la tâche est trop long. Il doit avoir au maximum {{ limit }} caractère.|Le titre de la tâche est trop long. IL doit avoir au maximum {{ limit }} caractères.
+    content:
+      not_blank: Le contenu ne peut être vide
+      length_min_message: Le contenu de la tâche est trop court. Il doit avoir au minimum {{ limit }} caractère.|Le contenu de la tâche est trop court. Il doit avoir au minimum {{ limit }} caractères.
+      length_max_message: Le contenu de la tâche est trop long. Il doit avoir au maximum {{ limit }} caractère.|Le contenu de la tâche est trop long. IL doit avoir au maximum {{ limit }} caractères.
+
+
