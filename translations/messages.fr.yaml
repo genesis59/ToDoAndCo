@@ -27,6 +27,14 @@ app:
   twig:
     page:
       task:
+        list:
+          sub_title_task_todo: Liste des tâches à faire
+          sub_title_task_do: Liste des tâches terminées
+          finished: Marquer comme faite
+          not_finished: Marquer non terminée
+          delete: Supprimer
+          no_todo_todo: Il n'y a pas de tâche à faire.
+          no_todo_do: Il n'y a pas de tâche terminées.
         create:
           sub_title: Création d'une tâche
           cancel_button: Annuler
@@ -57,6 +65,10 @@ app:
         login: Se connecter
         signup: Créer un utilisateur
         logout: Se déconnecter
+        tasks_todo: Liste des tâches à faire
+        tasks_do: Liste des tâches terminées
+        create_task: Créer une tâche
+        homepage: Tableau de bord
       header:
         default_message: Ne pas oublier d'où l'on vient, c'est savoir où l'on va.
 

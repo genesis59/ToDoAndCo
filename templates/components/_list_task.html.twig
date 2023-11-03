@@ -1,0 +1,29 @@
+<div class="col-12 col-lg-4 mt-4">
+    <div class="card h-100">
+        <div class="card-body d-flex flex-column">
+            <div class="task-card-title-box">
+                <h5 class="card-title">
+                    <a class="task-title" href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a>
+                </h5>
+            </div>
+            <div class="flex-grow-1 d-flex mt-2">
+                <p class="card-text text-justify align-self-center">{{ task.content }}</p>
+            </div>
+            <div class="task-card-button-box">
+                <form action="{{ path('task_toggle', {'id' : task.id }) }}">
+                    <button class="btn btn-primary btn-sm">
+                        {% if task.isDone %}
+                            {{ 'app.twig.page.task.list.not_finished'|trans }}
+                        {% endif %}
+                        {% if not task.isDone %}
+                            {{ 'app.twig.page.task.list.finished'|trans }}
+                        {% endif %}
+                    </button>
+                </form>
+                <form action="{{ path('task_delete', {'id' : task.id }) }}">
+                    <button class="btn btn-danger btn-sm ms-3">{{ 'app.twig.page.task.list.delete'|trans }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

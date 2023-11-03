@@ -14,6 +14,18 @@
                     <a class="nav-link {{ 'user_create' == app.request.attributes.get('_route') ? "active" : "" }}" href="{{ path('user_create') }}">{{ 'app.twig.component.navbar.signup'|trans }}</a>
                 </li>
                 {% endif %}
+                {% if app.user and 'homepage' != app.request.attributes.get('_route') %}
+                    <a class="nav-link" href="{{ path('homepage') }}">{{ 'app.twig.component.navbar.homepage'|trans }}</a>
+                {% endif %}
+                {% if app.user and 'task_list_todo' == app.request.attributes.get('_route') %}
+                    <a class="nav-link" href="{{ path('task_list_finished') }}">{{ 'app.twig.component.navbar.tasks_do'|trans }}</a>
+                {% endif %}
+                {% if app.user and 'task_list_finished' == app.request.attributes.get('_route') %}
+                    <a class="nav-link" href="{{ path('task_list_todo') }}">{{ 'app.twig.component.navbar.tasks_todo'|trans }}</a>
+                {% endif %}
+                {% if app.user and ('task_list_todo' == app.request.attributes.get('_route') or 'task_list_finished' == app.request.attributes.get('_route')) %}
+                    <a class="nav-link" href="{{ path('task_create') }}">{{ 'app.twig.component.navbar.create_task'|trans }}</a>
+                {% endif %}
                 {% if app.user %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">{{ 'app.twig.component.navbar.logout'|trans }}</a>
