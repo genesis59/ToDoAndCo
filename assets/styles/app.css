@@ -21,7 +21,6 @@ body, html {
     background-color: var(--custom-white);
     font-family: "times", sans-serif;
     font-size: 1.1rem;
-    height: 100vh;
 }
 
 /* Override bootstrap*/
@@ -89,7 +88,7 @@ select:focus {
 
 .btn-section{
     display: flex;
-    border: 10px solid var(--custom-white);
+    border: 5px solid var(--custom-white);
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -100,12 +99,15 @@ select:focus {
     color: var(--custom-white);
     font-size: 1.3rem;
     font-weight: bolder;
+    transition: 0.4s;
 }
 .btn-section:hover {
     background-color: var(--custom-grey-green-black-light);
+    border: 0 solid transparent;
 }
 .btn-section:active {
     background-color: var(--custom-grey-green-black);
+    border: 0 solid transparent;
 }
 
 .list-unstyled{
@@ -174,15 +176,18 @@ a {
     padding: 9px;
     color: #333;
 }
-.fake-div-footer {
+
+footer {
+    margin-top: 2rem;
     height: 5rem;
 }
-footer {
-    position: fixed;
-    height: 5rem;
-    right: 0;
-    bottom: 0;
-    left: 0;
+.page {
+    min-height: 100vh;
+    flex-direction: column;
+    display: flex;
+}
+.content{
+    flex-grow: 1;
 }
 
 @media screen and (max-width: 900px) {

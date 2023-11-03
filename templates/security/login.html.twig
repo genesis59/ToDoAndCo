@@ -16,7 +16,7 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-    <h2 class="mt-4">{{ 'app.twig.page.security.login.sub_title'|trans }}</h2>
+    <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.security.login.sub_title'|trans }}</h2>
     <label class="ps-1 mt-4" for="inputEmail">{{ 'app.twig.page.security.login.email_label'|trans }}</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mt-1" autocomplete="email" required autofocus>
     <label class="ps-1 mt-4" for="inputPassword">{{ 'app.twig.page.security.login.password_label'|trans }}</label>

@@ -26,7 +26,7 @@ app:
       default:
         index:
           header_title: 'À vous de jouer : Explorez les sections disponibles pour gérer vos tâches avec succès !'
-          sub_title: Votre espace de gestion des tâches
+          sub_title: Tableau de bord
           button:
             finished: Consulter la liste des tâches terminées
             todo: Consulter la liste des tâches à faire
@@ -34,11 +34,11 @@ app:
       user:
         create:
           submit: Soumettre la création
-          sub_title: Formulaire de création d'un utilisateur
+          sub_title: Création d'un utilisateur
       security:
         login:
           header_title: Espace d'authentification
-          sub_title: Formulaire de connexion
+          sub_title: Connexion
           email_label: Saisissez votre adresse email
           password_label: Saisissez votre mot de passe
           submit: Valider

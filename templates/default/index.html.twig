@@ -4,7 +4,7 @@
     {% include 'components/_header.html.twig' with {'my_title': 'app.twig.page.default.index.header_title'|trans} %}
 {% endblock %}
 {% block body %}
-    <h2 class="mt-4">{{ 'app.twig.page.default.index.sub_title'|trans }}</h2>
+    <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.default.index.sub_title'|trans }}</h2>
     <div class="row mt-5 justify-content-between">
         <div class="col-12 col-md-4 btn-section" data-url="{{ path('task_create') }}" id="btn-section-create">
             {{ 'app.twig.page.default.index.button.create'|trans }}
