@@ -20,10 +20,22 @@ class TaskController extends AbstractController
     ) {
     }
 
-    #[Route(path: '/tasks', name: 'task_list')]
-    public function list(): Response
+    #[Route(path: '/tasks/todo', name: 'task_list_todo')]
+    public function todoList(): Response
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->managerRegistry->getRepository(Task::class)->findAll()]);
+        return $this->render('task/list_todo.html.twig', [
+            'tasks' => $this->managerRegistry->getRepository(Task::class)->findBy(['isDone' => false])
+        ]);
+    }
+
+    #[Route(path: '/tasks/finished', name: 'task_list_finished')]
+    public function finishedList(): Response
+    {
+        return $this->render(
+            'task/list_finished.html.twig',
+            [
+            'tasks' => $this->managerRegistry->getRepository(Task::class)->findBy(['isDone' => true])
+        ]);
     }
 
     #[Route(path: '/tasks/create', name: 'task_create')]
@@ -41,7 +53,7 @@ class TaskController extends AbstractController
             $em->flush();
             $this->addFlash('success', $this->translator->trans('app.flashes.task.created'));
 
-            return $this->redirectToRoute('task_list');
+            return $this->redirectToRoute('task_list_todo');
         }
 
         return $this->render('task/create.html.twig', ['form' => $form->createView()]);
@@ -56,7 +68,7 @@ class TaskController extends AbstractController
             $this->managerRegistry->getManager()->flush();
             $this->addFlash('success', $this->translator->trans('app.flashes.task.updated'));
 
-            return $this->redirectToRoute('task_list');
+            return $this->redirectToRoute('task_list_todo');
         }
 
         return $this->render('task/edit.html.twig', [
@@ -73,18 +85,16 @@ class TaskController extends AbstractController
 
         $this->addFlash('success', $this->translator->trans('app.flashes.task.is_done', ['%task%' => $task->getTitle()]));
 
-        return $this->redirectToRoute('task_list');
+        return $this->redirectToRoute('task_list_todo');
     }
 
     #[Route(path: '/tasks/{id}/delete', name: 'task_delete')]
-    public function deleteTask(Task $task): Response
+    public function deleteTask(Request $request, Task $task): Response
     {
         $em = $this->managerRegistry->getManager();
         $em->remove($task);
         $em->flush();
-
         $this->addFlash('success', $this->translator->trans('app.flashes.task.deleted'));
-
-        return $this->redirectToRoute('task_list');
+        return $this->redirect($request->headers->get('referer'));
     }
 }

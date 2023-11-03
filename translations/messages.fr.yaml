@@ -10,6 +10,9 @@ app:
       deleted: La tâche a bien été supprimée.
       is_done: La tâche %task% a bien été marquée comme faite.
   form:
+    task:
+      title: Saisissez votre titre
+      content: Saisissez votre contenu
     user:
       name: Saisissez votre nom d'utilisateur
       password: Saisissez votre mot de passe
@@ -23,10 +26,23 @@ app:
     info_dev_role_must_be_string: "La configuration des paramètres de roles doivent être de type string."
   twig:
     page:
+      task:
+        list:
+          sub_title_task_todo: Liste des tâches à faire
+          sub_title_task_do: Liste des tâches terminées
+          finished: Marquer comme faite
+          not_finished: Marquer non terminée
+          delete: Supprimer
+          no_todo_todo: Il n'y a pas de tâche à faire.
+          no_todo_do: Il n'y a pas de tâche terminées.
+        create:
+          sub_title: Création d'une tâche
+          cancel_button: Annuler
+          create_button: Créer
       default:
         index:
           header_title: 'À vous de jouer : Explorez les sections disponibles pour gérer vos tâches avec succès !'
-          sub_title: Votre espace de gestion des tâches
+          sub_title: Tableau de bord
           button:
             finished: Consulter la liste des tâches terminées
             todo: Consulter la liste des tâches à faire
@@ -34,11 +50,13 @@ app:
       user:
         create:
           submit: Soumettre la création
-          sub_title: Formulaire de création d'un utilisateur
+          sub_title: Création d'un utilisateur
       security:
         login:
+          already_log: Vous êtes déjà connecté en tant que
+          logout: Se déconnecter
           header_title: Espace d'authentification
-          sub_title: Formulaire de connexion
+          sub_title: Connexion
           email_label: Saisissez votre adresse email
           password_label: Saisissez votre mot de passe
           submit: Valider
@@ -47,6 +65,10 @@ app:
         login: Se connecter
         signup: Créer un utilisateur
         logout: Se déconnecter
+        tasks_todo: Liste des tâches à faire
+        tasks_do: Liste des tâches terminées
+        create_task: Créer une tâche
+        homepage: Tableau de bord
       header:
         default_message: Ne pas oublier d'où l'on vient, c'est savoir où l'on va.
 

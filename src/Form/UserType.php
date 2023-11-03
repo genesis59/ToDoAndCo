@@ -66,7 +66,7 @@ class UserType extends AbstractType
                 'mapped' => false,
                 'label' => $this->translator->trans('app.form.user.role'),
                 'label_attr' => ['class' => 'ps-1 mt-4'],
-                'attr' => ['class' => 'mt-1'],
+                'attr' => ['class' => 'form-select mt-1'],
                 'expanded' => false,
                 'multiple' => false,
                 'data' => $this->getRoleData($options),

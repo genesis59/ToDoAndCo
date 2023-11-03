@@ -19,30 +19,33 @@
 </head>
 
 <body>
-{% include 'components/_navbar.html.twig' %}
-{% block header_img %}{% endblock %}
-<div class="container">
-    <div class="row mt-3">
-        <div class="col-md-12">
-            {% for flash_message in app.session.flashBag.get('success') %}
-                <div class="alert alert-success" role="alert">
-                    <strong>Superbe !</strong> {{ flash_message }}
-                </div>
-            {% endfor %}
+<div class="page">
+    {% include 'components/_navbar.html.twig' %}
+    {% block header_img %}{% endblock %}
+    <div class="container content">
+        <div class="row mt-3">
+            <div class="col-md-12">
+                {% for flash_message in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success" role="alert">
+                        <strong>Superbe !</strong> {{ flash_message }}
+                    </div>
+                {% endfor %}
 
-            {% for flash_message in app.session.flashBag.get('error') %}
-                <div class="alert alert-danger" role="alert">
-                    <strong>Oops !</strong> {{ flash_message }}
-                </div>
-            {% endfor %}
+                {% for flash_message in app.session.flashBag.get('error') %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Oops !</strong> {{ flash_message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% block body %}{% endblock %}
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            {% block body %}{% endblock %}
-        </div>
-    </div>
+    {% include 'components/_footer.html.twig' %}
 </div>
-{% include 'components/_footer.html.twig' %}
+
 </body>
 </html>

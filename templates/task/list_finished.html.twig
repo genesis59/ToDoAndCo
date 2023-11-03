@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ 'app.twig.page.task.list.sub_title_task_do'|trans }}{% endblock %}
+{% block header_img %}
+    <img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">
+{% endblock %}
+
+{% block body %}
+    <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.task.list.sub_title_task_do'|trans }}</h2>
+    <div class="row">
+        {% for task in tasks %}
+            {% if task.isDone %}
+                {% include 'components/_list_task.html.twig' %}
+            {% endif %}
+        {% else %}
+            <div class="alert alert-success mt-4" role="alert">
+                {% if tasks|length == 0 %}
+                    {{ 'app.twig.page.task.list.no_todo_do'|trans }}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
