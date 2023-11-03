@@ -42,6 +42,11 @@ class UserType extends AbstractType
                 'label_attr' => ['class' => 'ps-1 mt-4'],
                 'attr' => ['class' => 'mt-1'],
             ])
+            ->add('email', EmailType::class, [
+                'label' => $this->translator->trans('app.form.user.email'),
+                'label_attr' => ['class' => 'ps-1 mt-4'],
+                'attr' => ['class' => 'mt-1'],
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => $this->translator->trans('app.form.user.error_password'),
@@ -56,11 +61,6 @@ class UserType extends AbstractType
                     'label_attr' => ['class' => 'ps-1 mt-4'],
                     'attr' => ['class' => 'mt-1'],
                 ],
-            ])
-            ->add('email', EmailType::class, [
-                'label' => $this->translator->trans('app.form.user.email'),
-                'label_attr' => ['class' => 'ps-1 mt-4'],
-                'attr' => ['class' => 'mt-1'],
             ])
             ->add('roles', ChoiceType::class, [
                 'mapped' => false,

@@ -48,6 +48,10 @@ app:
             todo: Consulter la liste des tâches à faire
             create: Créer une nouvelle tâche
       user:
+        list:
+          sub_title: Liste des utilisateurs
+        edit:
+          sub_title: Modifier
         create:
           submit: Soumettre la création
           sub_title: Création d'un utilisateur
@@ -69,6 +73,7 @@ app:
         tasks_do: Liste des tâches terminées
         create_task: Créer une tâche
         homepage: Tableau de bord
+        admin: Administration
       header:
         default_message: Ne pas oublier d'où l'on vient, c'est savoir où l'on va.
 
