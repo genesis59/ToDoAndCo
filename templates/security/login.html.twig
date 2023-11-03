@@ -3,7 +3,7 @@
 {% block header_img %}
     {% include 'components/_header.html.twig' with {'my_title': 'app.twig.page.security.login.header_title'|trans} %}
 {% endblock %}
-{% block title %}Log in!{% endblock %}
+{% block title %}{{ 'app.twig.page.security.login.sub_title'|trans }}{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -13,7 +13,8 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            {{ 'app.twig.page.security.login.already_log'|trans }} {{ app.user.userIdentifier }},
+            <a href="{{ path('app_logout') }}">{{ 'app.twig.page.security.login.logout'|trans }}</a>
         </div>
     {% endif %}
     <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.security.login.sub_title'|trans }}</h2>

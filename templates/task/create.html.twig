@@ -1,13 +1,17 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}{{ 'app.twig.page.task.create.sub_title'|trans }}{% endblock %}
 {% block body %}
+    <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.task.create.sub_title'|trans }}</h2>
     <div class="row">
         {{ form_start(form, {'action' : path('task_create')}) }}
             {{ form_widget(form) }}
 
-            <button type="submit" class="btn btn-success pull-right">Ajouter</button>
+        <div class="d-flex mt-4">
+            <button type="submit" class="btn btn-primary pull-right">{{ 'app.twig.page.task.create.create_button'|trans }}</button>
+            <a href="{{ path('homepage') }}" class="btn btn-primary ms-3">{{ 'app.twig.page.task.create.cancel_button'|trans }}</a>
+        </div>
+
         {{ form_end(form) }}
 
-        <a href="{{ path('task_list') }}" class="btn btn-primary">Retour à la liste des tâches</a>
     </div>
 {% endblock %}

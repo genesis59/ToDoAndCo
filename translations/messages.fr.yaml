@@ -10,6 +10,9 @@ app:
       deleted: La tâche a bien été supprimée.
       is_done: La tâche %task% a bien été marquée comme faite.
   form:
+    task:
+      title: Saisissez votre titre
+      content: Saisissez votre contenu
     user:
       name: Saisissez votre nom d'utilisateur
       password: Saisissez votre mot de passe
@@ -23,6 +26,11 @@ app:
     info_dev_role_must_be_string: "La configuration des paramètres de roles doivent être de type string."
   twig:
     page:
+      task:
+        create:
+          sub_title: Création d'une tâche
+          cancel_button: Annuler
+          create_button: Créer
       default:
         index:
           header_title: 'À vous de jouer : Explorez les sections disponibles pour gérer vos tâches avec succès !'
@@ -37,6 +45,8 @@ app:
           sub_title: Création d'un utilisateur
       security:
         login:
+          already_log: Vous êtes déjà connecté en tant que
+          logout: Se déconnecter
           header_title: Espace d'authentification
           sub_title: Connexion
           email_label: Saisissez votre adresse email
