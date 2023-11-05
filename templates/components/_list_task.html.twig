@@ -5,6 +5,21 @@
                 <h5 class="card-title">
                     <a class="task-title" href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a>
                 </h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    {% set date = null %}
+                    {% if task.updatedAt is null %}
+                        {{ 'app.twig.page.task.list.previous_date_added'|trans }}
+                        {% set date = task.createdAt %}
+                    {% endif %}
+                    {% if task.updatedAt is not null %}
+                        {{ 'app.twig.page.task.list.previous_date_updated'|trans }}
+                        {% set date = task.updatedAt %}
+                    {% endif %}
+                    {{ date|format_datetime(locale=app.locale,pattern="dd MMMM YYYY, HH:mm")|capitalize }}
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                    {{ 'app.twig.page.task.list.previous_username'|trans|capitalize }} {{ task.owner.username }}
+                {% endif %}
+                </h6>
             </div>
             <div class="flex-grow-1 d-flex mt-2">
                 <p class="card-text text-justify align-self-center">{{ task.content }}</p>

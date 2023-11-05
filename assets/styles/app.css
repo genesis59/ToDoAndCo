@@ -167,6 +167,7 @@ a {
 .slide-image {
     position: relative;
     width: 100%;
+    filter: grayscale(1) brightness(60%);
 }
 
 .slide-image h1 {

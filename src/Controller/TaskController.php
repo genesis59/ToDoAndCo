@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TaskController extends AbstractController
@@ -48,6 +49,7 @@ class TaskController extends AbstractController
             /** @var User $user */
             $user = $this->getUser();
             $task->setOwner($user);
+            $task->setUuid(Uuid::v4());
             $em = $this->managerRegistry->getManager();
             $em->persist($task);
             $em->flush();

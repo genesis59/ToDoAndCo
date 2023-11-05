@@ -267,6 +267,9 @@
             "webpack.config.js"
         ]
     },
+    "twig/extra-bundle": {
+        "version": "v3.7.1"
+    },
     "zenstruck/foundry": {
         "version": "1.36",
         "recipe": {
