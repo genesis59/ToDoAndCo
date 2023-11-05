@@ -22,12 +22,12 @@ class Task
     #[ORM\Column]
     private \DateTime $createdAt;
 
-    #[Assert\Length(min:2, max:255, minMessage: 'validator.task.title.length_min_message', maxMessage: 'validator.task.title.length_max_message')]
+    #[Assert\Length(min: 2, max: 255, minMessage: 'validator.task.title.length_min_message', maxMessage: 'validator.task.title.length_max_message')]
     #[Assert\NotBlank(message: 'validator.task.title.not_blank')]
     #[ORM\Column]
     private ?string $title = null;
 
-    #[Assert\Length(min:10, max:6000, minMessage: 'validator.task.content.length_min_message', maxMessage: 'validator.task.content.length_max_message')]
+    #[Assert\Length(min: 10, max: 6000, minMessage: 'validator.task.content.length_min_message', maxMessage: 'validator.task.content.length_max_message')]
     #[Assert\NotBlank(message: 'validator.task.content.not_blank')]
     #[ORM\Column(type: 'text')]
     private ?string $content = null;

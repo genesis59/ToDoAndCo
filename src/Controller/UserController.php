@@ -22,7 +22,12 @@ class UserController extends AbstractController
     #[Route(path: '/users', name: 'user_list')]
     public function list(): Response
     {
-        $this->denyAccessUnlessGranted(User::ROLE_ADMIN);
+        if (!$this->isGranted('USER_VIEW', $this->getUser())) {
+            $this->addFlash('error', $this->translator->trans('app.flashes.user.denied_access'));
+
+            return $this->redirectToRoute('homepage');
+        }
+
         return $this->render('user/list.html.twig', ['users' => $this->managerRegistry->getRepository(User::class)->findAll()]);
     }
 
@@ -48,7 +53,11 @@ class UserController extends AbstractController
     #[Route(path: '/users/{id}/edit', name: 'user_edit')]
     public function edit(User $user, Request $request): Response
     {
-        $this->denyAccessUnlessGranted(User::ROLE_ADMIN);
+        if (!$this->isGranted('USER_EDIT', $this->getUser())) {
+            $this->addFlash('error', $this->translator->trans('app.flashes.user.denied_access'));
+
+            return $this->redirectToRoute('homepage');
+        }
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

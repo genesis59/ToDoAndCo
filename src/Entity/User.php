@@ -32,9 +32,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank(message: 'validator.customer.first_name.not_blank')]
     #[Assert\Length(
-        min:1,
-        max:255,
-        minMessage:'validator.user.username.length_min_message',
+        min: 1,
+        max: 255,
+        minMessage: 'validator.user.username.length_min_message',
         maxMessage: 'validator.user.username.length_max_message'
     )]
     #[Assert\Regex(
@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank(message: 'validator.user.email.not_blank')]
     #[Assert\Email(message: 'validator.user.email.email')]
-    #[Assert\Length(max:255, maxMessage: 'validator.user.email.length_max_message')]
+    #[Assert\Length(max: 255, maxMessage: 'validator.user.email.length_max_message')]
     private ?string $email = null;
 
     /**

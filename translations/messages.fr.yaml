@@ -10,6 +10,8 @@ app:
       updated: La tâche a bien été modifiée.
       deleted: La tâche a bien été supprimée.
       is_done: La tâche %task% a bien été marquée comme faite.
+      user_not_authorized_to_delete: Désolé, vous n'avez pas les autorisations pour supprimer cette tâche.
+      user_not_authorized_to_edit: Désolé, vous n'avez pas les autorisations pour modifier cette tâche.
   form:
     task:
       title: Saisissez votre titre
@@ -37,12 +39,17 @@ app:
           finished: Marquer comme faite
           not_finished: Marquer non terminée
           delete: Supprimer
+          edit: Modifier
           no_todo_todo: Il n'y a pas de tâche à faire.
           no_todo_do: Il n'y a pas de tâche terminées.
         create:
           sub_title: Création d'une tâche
           cancel_button: Annuler
           create_button: Créer
+        edit:
+          sub_title: Modifier la tâche
+          cancel_button: Annuler
+          edit_button: Modifier
       default:
         index:
           header_title: 'À vous de jouer : Explorez les sections disponibles pour gérer vos tâches avec succès !'

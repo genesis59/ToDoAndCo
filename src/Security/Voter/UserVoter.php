@@ -24,10 +24,10 @@ class UserVoter extends Voter
         if (!$user instanceof UserInterface) {
             return false;
         }
+
         return match ($attribute) {
             self::VIEW, self::EDIT => in_array(User::ROLE_ADMIN, $user->getRoles()),
             default => false,
         };
-
     }
 }

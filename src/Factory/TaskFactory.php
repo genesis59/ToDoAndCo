@@ -48,7 +48,7 @@ final class TaskFactory extends ModelFactory
             'createdAt' => self::faker()->dateTime(),
             'isDone' => self::faker()->boolean(),
             'title' => self::faker()->sentence(),
-            'uuid' => Uuid::v4()
+            'uuid' => Uuid::v4(),
         ];
     }
 

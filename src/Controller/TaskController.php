@@ -25,7 +25,7 @@ class TaskController extends AbstractController
     public function todoList(): Response
     {
         return $this->render('task/list_todo.html.twig', [
-            'tasks' => $this->managerRegistry->getRepository(Task::class)->findBy(['isDone' => false])
+            'tasks' => $this->managerRegistry->getRepository(Task::class)->findBy(['isDone' => false]),
         ]);
     }
 
@@ -35,7 +35,7 @@ class TaskController extends AbstractController
         return $this->render(
             'task/list_finished.html.twig',
             [
-            'tasks' => $this->managerRegistry->getRepository(Task::class)->findBy(['isDone' => true])
+            'tasks' => $this->managerRegistry->getRepository(Task::class)->findBy(['isDone' => true]),
         ]);
     }
 
@@ -64,6 +64,11 @@ class TaskController extends AbstractController
     #[Route(path: '/tasks/{id}/edit', name: 'task_edit')]
     public function edit(Task $task, Request $request): Response
     {
+        if (!$this->isGranted('TASK_EDIT', $task)) {
+            $this->addFlash('error', $this->translator->trans('app.flashes.task.user_not_authorized_to_edit'));
+
+            return $this->redirect($request->headers->get('referer'));
+        }
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -93,10 +98,16 @@ class TaskController extends AbstractController
     #[Route(path: '/tasks/{id}/delete', name: 'task_delete')]
     public function deleteTask(Request $request, Task $task): Response
     {
+        if (!$this->isGranted('TASK_DELETE', $task)) {
+            $this->addFlash('error', $this->translator->trans('app.flashes.task.user_not_authorized_to_delete'));
+
+            return $this->redirect($request->headers->get('referer'));
+        }
         $em = $this->managerRegistry->getManager();
         $em->remove($task);
         $em->flush();
         $this->addFlash('success', $this->translator->trans('app.flashes.task.deleted'));
+
         return $this->redirect($request->headers->get('referer'));
     }
 }
