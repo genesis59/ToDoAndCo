@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.task.edit.sub_title'|trans }}</h2>
     <div class="row">
-        {{ form_start(form, {'action' : path('task_edit', { 'id' : task.id })}) }}
-            {{ form_widget(form) }}
-
-            <button type="submit" class="btn btn-success pull-right">Modifier</button>
+        {{ form_start(form, {'action' : path('task_edit', { 'uuid' : task.uuid })}) }}
+        {{ form_widget(form) }}
+        <div class="d-flex mt-4">
+            <button type="submit" class="btn btn-primary pull-right">{{ 'app.twig.page.task.edit.edit_button'|trans }}</button>
+            <a href="{{ path('homepage') }}" class="btn btn-primary ms-3">{{ 'app.twig.page.task.edit.cancel_button'|trans }}</a>
+        </div>
         {{ form_end(form) }}
     </div>
 {% endblock %}

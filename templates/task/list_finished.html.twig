@@ -6,6 +6,7 @@
 
 {% block body %}
     <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.task.list.sub_title_task_do'|trans }}</h2>
+    {% if tasks != null %}
     <div class="row">
         {% for task in tasks %}
             {% if task.isDone %}
@@ -19,5 +20,8 @@
             </div>
         {% endfor %}
     </div>
-
+    <div class="d-flex justify-content-center mt-5">
+        {% include 'components/_pagination.html.twig' %}
+    </div>
+    {% endif %}
 {% endblock %}

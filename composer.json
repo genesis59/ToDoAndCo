@@ -28,6 +28,8 @@
         "symfony/flex": "^2.3.3",
         "symfony/form": "6.3.*",
         "symfony/framework-bundle": "6.3.*",
+        "symfony/http-client": "6.3.*",
+        "symfony/http-foundation": "6.3.*",
         "symfony/mailer": "6.3.*",
         "symfony/monolog-bundle": "^3.1.0",
         "symfony/polyfill-apcu": "^1.0",
@@ -36,9 +38,12 @@
         "symfony/security-csrf": "6.3.*",
         "symfony/translation": "6.3.*",
         "symfony/twig-bundle": "6.3.*",
+        "symfony/uid": "6.3.*",
         "symfony/validator": "6.3.*",
         "symfony/webpack-encore-bundle": "^2.1",
-        "symfony/yaml": "6.3.*"
+        "symfony/yaml": "6.3.*",
+        "twig/extra-bundle": "^3.7",
+        "twig/intl-extra": "^3.7"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",

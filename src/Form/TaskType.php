@@ -16,15 +16,16 @@ class TaskType extends AbstractType
         private readonly TranslatorInterface $translator
     ) {
     }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title',TextType::class,[
+            ->add('title', TextType::class, [
                 'label' => $this->translator->trans('app.form.task.title'),
                 'label_attr' => ['class' => 'ps-1 mt-4'],
                 'attr' => ['class' => 'mt-1'],
             ])
-            ->add('content', TextareaType::class,[
+            ->add('content', TextareaType::class, [
                 'label' => $this->translator->trans('app.form.task.content'),
                 'label_attr' => ['class' => 'ps-1 mt-4'],
                 'attr' => ['class' => 'mt-1'],

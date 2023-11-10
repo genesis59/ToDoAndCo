@@ -4,11 +4,14 @@ app:
     user:
       created: L'utilisateur a bien été ajouté.
       updated: L'utilisateur a bien été modifié.
+      denied_access: Désolé, vous n'avez pas les autorisations pour accéder à cette partie du site.
     task:
       created: La tâche a été bien été ajoutée.
       updated: La tâche a bien été modifiée.
       deleted: La tâche a bien été supprimée.
       is_done: La tâche %task% a bien été marquée comme faite.
+      user_not_authorized_to_delete: Désolé, vous n'avez pas les autorisations pour supprimer cette tâche.
+      user_not_authorized_to_edit: Désolé, vous n'avez pas les autorisations pour modifier cette tâche.
   form:
     task:
       title: Saisissez votre titre
@@ -24,21 +27,32 @@ app:
       role_user: Simple utilisateur
   exceptions:
     info_dev_role_must_be_string: "La configuration des paramètres de roles doivent être de type string."
+    bad_request_http_exception_page: Le paramètre page que vous avez renseigné doit être un entier supérieur ou égal à 1
+    bad_request_http_exception_limit: Le paramètre limit que vous avez renseigné doit être un entier supérieur ou égal à 1
+    bad_method_call_exception_searchAndPaginate : Nous rencontrons un problème la méthode de pagination n'existe pas.
   twig:
     page:
       task:
         list:
+          previous_date_added: Ajouté le
+          previous_date_updated: Modifié le
+          previous_username: Par
           sub_title_task_todo: Liste des tâches à faire
           sub_title_task_do: Liste des tâches terminées
           finished: Marquer comme faite
           not_finished: Marquer non terminée
           delete: Supprimer
+          edit: Modifier
           no_todo_todo: Il n'y a pas de tâche à faire.
           no_todo_do: Il n'y a pas de tâche terminées.
         create:
           sub_title: Création d'une tâche
           cancel_button: Annuler
           create_button: Créer
+        edit:
+          sub_title: Modifier la tâche
+          cancel_button: Annuler
+          edit_button: Modifier
       default:
         index:
           header_title: 'À vous de jouer : Explorez les sections disponibles pour gérer vos tâches avec succès !'
@@ -48,6 +62,15 @@ app:
             todo: Consulter la liste des tâches à faire
             create: Créer une nouvelle tâche
       user:
+        list:
+          create_user:
+          sub_title: Liste des utilisateurs
+          th_user: Nom
+          th_email: Email
+          th_role: rôles
+          th_action: Actions
+        edit:
+          sub_title: Modifier
         create:
           submit: Soumettre la création
           sub_title: Création d'un utilisateur
@@ -61,6 +84,12 @@ app:
           password_label: Saisissez votre mot de passe
           submit: Valider
     component:
+      pagination:
+        page: page
+        next: Suivante
+        previous: Précédente
+        first: Première
+        last: Dernière
       navbar:
         login: Se connecter
         signup: Créer un utilisateur
@@ -69,6 +98,8 @@ app:
         tasks_do: Liste des tâches terminées
         create_task: Créer une tâche
         homepage: Tableau de bord
+        admin: Administration
       header:
         default_message: Ne pas oublier d'où l'on vient, c'est savoir où l'on va.
+
 

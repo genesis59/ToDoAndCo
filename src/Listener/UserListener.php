@@ -5,6 +5,7 @@ namespace App\Listener;
 use App\Entity\User;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Uid\Uuid;
 
 readonly class UserListener
 {
@@ -19,10 +20,7 @@ readonly class UserListener
             $user->setRoles([User::ROLE_USER]);
         }
         $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
-    }
-
-    public function preUpdate(User $user, LifecycleEventArgs $args): void
-    {
-        $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
+        $user->setCreatedAt(new \DateTime());
+        $user->setUuid(Uuid::v4());
     }
 }

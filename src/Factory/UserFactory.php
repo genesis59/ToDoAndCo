@@ -45,6 +45,7 @@ final class UserFactory extends ModelFactory
         return [
             'email' => self::faker()->email(),
             'password' => 'password',
+            'createdAt' => self::faker()->dateTime(),
             'roles' => [],
             'username' => self::faker()->name(),
         ];

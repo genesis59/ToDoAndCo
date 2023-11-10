@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
@@ -15,14 +16,19 @@ class Task
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     private ?int $id = null;
 
+    #[ORM\Column(type: 'uuid')]
+    private ?Uuid $uuid = null;
+
     #[ORM\Column]
     private \DateTime $createdAt;
 
-    #[Assert\NotBlank(message: 'Vous devez saisir un titre.')]
+    #[Assert\Length(min: 2, max: 255, minMessage: 'validator.task.title.length_min_message', maxMessage: 'validator.task.title.length_max_message')]
+    #[Assert\NotBlank(message: 'validator.task.title.not_blank')]
     #[ORM\Column]
     private ?string $title = null;
 
-    #[Assert\NotBlank(message: 'Vous devez saisir du contenu.')]
+    #[Assert\Length(min: 10, max: 6000, minMessage: 'validator.task.content.length_min_message', maxMessage: 'validator.task.content.length_max_message')]
+    #[Assert\NotBlank(message: 'validator.task.content.not_blank')]
     #[ORM\Column(type: 'text')]
     private ?string $content = null;
 
@@ -33,6 +39,9 @@ class Task
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -41,6 +50,16 @@ class Task
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUuid(): ?Uuid
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(?Uuid $uuid): void
+    {
+        $this->uuid = $uuid;
     }
 
     public function getCreatedAt(): \DateTime
@@ -103,6 +122,18 @@ class Task
     public function setOwner(?User $owner): static
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
