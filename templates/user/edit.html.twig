@@ -6,9 +6,8 @@
 {% block body %}
     <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.user.edit.sub_title'|trans }} {{ user.username }}</h2>
     <div class="row">
-        {{ form_start(form, {'action' : path('user_edit', {'id' : user.id})}) }}
+        {{ form_start(form, {'action' : path('user_edit', {'uuid' : user.uuid})}) }}
         {{ form_widget(form) }}
-
         <button type="submit" class="btn btn-primary pull-right mt-4">Modifier</button>
         {{ form_end(form) }}
     </div>

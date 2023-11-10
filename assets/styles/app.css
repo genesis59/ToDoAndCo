@@ -100,13 +100,33 @@ select:focus {
     box-shadow: 0 0 0 0.25rem var(--custom-grey-green-light-shadow) !important;
 }
 .card {
-    background-color: var(--custom-grey-green-light-shadow);
+    background-color: var(--custom-grey-green-light-shadow)!important;
 }
 
+.page-link.active{
+    color: var(--custom-white) !important;
+}
+
+.page-link{
+    color: var(--custom-grey-green-black-light);
+}
+
+.active>.page-link, .page-link.active {
+    background-color: var(--custom-grey-green-black-light) !important;
+    border-color: var(--custom-grey-green-light-shadow)!important;
+}
+
+.page-link:focus {
+    color: var(--custom-grey-green-black-light);
+    box-shadow: 0 0 0 0.25rem var(--custom-grey-green-light-shadow) !important;
+}
+.page-link:hover {
+    color: var(--custom-grey-green-black);
+}
 /* END Override bootstrap*/
 
 .task-title {
-    color: var(--custom-grey-green-medium);
+    color: #D92365;
 }
 
 .task-card-title-box {

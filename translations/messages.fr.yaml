@@ -27,6 +27,9 @@ app:
       role_user: Simple utilisateur
   exceptions:
     info_dev_role_must_be_string: "La configuration des paramètres de roles doivent être de type string."
+    bad_request_http_exception_page: Le paramètre page que vous avez renseigné doit être un entier supérieur ou égal à 1
+    bad_request_http_exception_limit: Le paramètre limit que vous avez renseigné doit être un entier supérieur ou égal à 1
+    bad_method_call_exception_searchAndPaginate : Nous rencontrons un problème la méthode de pagination n'existe pas.
   twig:
     page:
       task:
@@ -60,7 +63,12 @@ app:
             create: Créer une nouvelle tâche
       user:
         list:
+          create_user:
           sub_title: Liste des utilisateurs
+          th_user: Nom
+          th_email: Email
+          th_role: rôles
+          th_action: Actions
         edit:
           sub_title: Modifier
         create:
@@ -76,6 +84,12 @@ app:
           password_label: Saisissez votre mot de passe
           submit: Valider
     component:
+      pagination:
+        page: page
+        next: Suivante
+        previous: Précédente
+        first: Première
+        last: Dernière
       navbar:
         login: Se connecter
         signup: Créer un utilisateur

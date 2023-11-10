@@ -1,43 +1,45 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ 'app.twig.page.user.list.sub_title'|trans }}{% endblock %}
 {% block header_img %}{% endblock %}
-
 {% block header_title %}<h1>Liste des utilisateurs</h1>{% endblock %}
 
 {% block body %}
-    {% if users|length == 0 %}
-        <div class="alert alert-warning" role="alert">
-            Il n'y a pas encore d'utilisateur enregistré. <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
-        </div>
-    {% else %}
-        <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.user.list.sub_title'|trans }}</h2>
-        <div class="row mt-4">
-            <table class="table table-responsive">
-                <thead>
-                <tr>
-                    <th>Nom d'utilisateur</th>
-                    <th>Adresse d'utilisateur</th>
-                    <th>rôles de l'utilisateur</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for user in users %}
-                    {% if user.username != 'Anonyme' %}
-                    <tr>
-                        <td>{{ user.username }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>
-                            [{{ user.roles|join(', ')|lower }}]
-                        </td>
-                        <td>
-                            <a href="{{ path('user_edit', {'id' : user.id}) }}" class="btn btn-primary btn-sm">Edit</a>
-                        </td>
-                    </tr>
+    <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.user.list.sub_title'|trans }}</h2>
+    <div class="row mt-4">
+        <table class="table table-responsive">
+            <thead>
+            <tr>
+                <th>{{ 'app.twig.page.user.list.th_user'|trans|capitalize }}</th>
+                <th>{{ 'app.twig.page.user.list.th_email'|trans|capitalize }}</th>
+                <th>{{ 'app.twig.page.user.list.th_role'|trans|capitalize }}</th>
+                <th>{{ 'app.twig.page.user.list.th_action'|trans|capitalize }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                {% set formatted_roles = [] %}
+                {% for role in user.roles %}
+                    {% if roles_format[role] is defined %}
+                        {% set formatted_roles = formatted_roles|merge([roles_format[role]]) %}
                     {% endif %}
                 {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% endif %}
+                {% if user.username != 'Anonyme' %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        [{{ formatted_roles|join(', ')|capitalize }}]
+                    </td>
+                    <td>
+                        <a href="{{ path('user_edit', {'uuid' : user.uuid}) }}" class="btn btn-primary btn-sm">Edit</a>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+        {% include 'components/_pagination.html.twig' %}
+    </div>
 {% endblock %}
