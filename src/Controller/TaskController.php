@@ -109,10 +109,14 @@ class TaskController extends AbstractController
     #[Route(path: '/tasks/{uuid}/edit', name: 'task_edit')]
     public function edit(Task $task, Request $request): Response
     {
+        $response = $this->redirectToRoute('task_list_todo');
+        if ($task->isDone()) {
+            $response = $this->redirectToRoute('task_list_finished');
+        }
         if (!$this->isGranted('TASK_EDIT', $task)) {
             $this->addFlash('error', $this->translator->trans('app.flashes.task.user_not_authorized_to_edit'));
 
-            return $this->redirect($request->headers->get('referer'));
+            return $response;
         }
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
@@ -120,7 +124,7 @@ class TaskController extends AbstractController
             $this->managerRegistry->getManager()->flush();
             $this->addFlash('success', $this->translator->trans('app.flashes.task.updated'));
 
-            return $this->redirectToRoute('task_list_todo');
+            return $response;
         }
 
         return $this->render('task/edit.html.twig', [
@@ -129,30 +133,39 @@ class TaskController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/tasks/{uuid}/toggle', name: 'task_toggle')]
-    public function toggleTask(Task $task): Response
-    {
-        $task->toggle(!$task->isDone());
-        $this->managerRegistry->getManager()->flush();
-
-        $this->addFlash('success', $this->translator->trans('app.flashes.task.is_done', ['%task%' => $task->getTitle()]));
-
-        return $this->redirectToRoute('task_list_todo');
-    }
-
     #[Route(path: '/tasks/{uuid}/delete', name: 'task_delete')]
     public function deleteTask(Request $request, Task $task): Response
     {
+        $response = $this->redirectToRoute('task_list_todo');
+        if ($task->isDone()) {
+            $response = $this->redirectToRoute('task_list_finished');
+        }
         if (!$this->isGranted('TASK_DELETE', $task)) {
             $this->addFlash('error', $this->translator->trans('app.flashes.task.user_not_authorized_to_delete'));
 
-            return $this->redirect($request->headers->get('referer'));
+            return $response;
         }
         $em = $this->managerRegistry->getManager();
         $em->remove($task);
         $em->flush();
         $this->addFlash('success', $this->translator->trans('app.flashes.task.deleted'));
 
-        return $this->redirect($request->headers->get('referer'));
+        return $response;
+    }
+
+    #[Route(path: '/tasks/{uuid}/toggle', name: 'task_toggle')]
+    public function toggleTask(Task $task): Response
+    {
+        $task->toggle(!$task->isDone());
+        $response = $this->redirectToRoute('task_list_finished');
+        $message = 'app.flashes.task.is_not_done';
+        if ($task->isDone()) {
+            $message = 'app.flashes.task.is_done';
+            $response = $this->redirectToRoute('task_list_todo');
+        }
+        $this->managerRegistry->getManager()->flush();
+        $this->addFlash('success', $this->translator->trans($message, ['%task%' => $task->getTitle()]));
+
+        return $response;
     }
 }

@@ -10,6 +10,7 @@ app:
       updated: La tâche a bien été modifiée.
       deleted: La tâche a bien été supprimée.
       is_done: La tâche %task% a bien été marquée comme faite.
+      is_not_done: La tâche %task% a bien été marquée comme non terminée.
       user_not_authorized_to_delete: Désolé, vous n'avez pas les autorisations pour supprimer cette tâche.
       user_not_authorized_to_edit: Désolé, vous n'avez pas les autorisations pour modifier cette tâche.
   form:
@@ -69,6 +70,7 @@ app:
           th_email: Email
           th_role: rôles
           th_action: Actions
+          th_created_at: date de création
         edit:
           sub_title: Modifier
         create:

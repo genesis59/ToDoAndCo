@@ -25,6 +25,7 @@
                 <p class="card-text text-justify align-self-center">{{ task.content }}</p>
             </div>
             <div class="task-card-button-box">
+                {% if task.owner.id != 1 %}
                 <form action="{{ path('task_toggle', {'uuid' : task.uuid }) }}">
                     <button class="btn btn-primary btn-sm">
                         {% if task.isDone %}
@@ -38,6 +39,7 @@
                 <form action="{{ path('task_edit', {'uuid' : task.uuid }) }}">
                     <button class="btn btn-primary btn-sm ms-3">{{ 'app.twig.page.task.list.edit'|trans }}</button>
                 </form>
+                {% endif %}
                 <form action="{{ path('task_delete', {'uuid' : task.uuid }) }}">
                     <button class="btn btn-primary btn-sm ms-3">{{ 'app.twig.page.task.list.delete'|trans }}</button>
                 </form>
