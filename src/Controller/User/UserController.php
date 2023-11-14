@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\Entity\User;
+use App\Event\UserEmailEvent;
 use App\Form\UserEditType;
 use App\Form\UserType;
 use App\Paginator\PaginatorService;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +22,8 @@ class UserController extends AbstractController
         private readonly ManagerRegistry $managerRegistry,
         private readonly UserRepository $userRepository,
         private readonly TranslatorInterface $translator,
-        private readonly PaginatorService $paginatorService
+        private readonly PaginatorService $paginatorService,
+        private readonly EventDispatcherInterface $dispatcher,
     ) {
     }
 
@@ -69,6 +72,7 @@ class UserController extends AbstractController
             $user->setRoles([$form->get('roles')->getData()]);
             $em->persist($user);
             $em->flush();
+            $this->dispatcher->dispatch(new UserEmailEvent($user), UserEmailEvent::ACTIVATION_EMAIL);
             $this->addFlash('success', $this->translator->trans('app.flashes.user.created'));
 
             return $this->redirectToRoute('app_login');

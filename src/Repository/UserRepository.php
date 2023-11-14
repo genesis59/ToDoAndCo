@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Token;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -57,5 +58,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function createActivationToken(User $user, Token $token): void
+    {
+        $user->setActivationToken($token);
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
+    }
+
+    public function activate(User $user): void
+    {
+        $user->setActivated(true);
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
     }
 }

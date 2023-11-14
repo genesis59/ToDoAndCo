@@ -8,7 +8,13 @@
 {% block body %}
 <form method="post">
     {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert alert-{{ error.code == 100 ? 'info' : 'danger' }} error">
+            <p class="m-0">{{ error.messageKey |trans(error.messageData, 'security') }}
+            {% if error.code == 100 %}
+                    <a href="{{ path('user_new_activation') }}">{{ 'app.twig.page.security.login.new_activation'|trans }}</a>
+            {% endif %}
+            </p>
+        </div>
     {% endif %}
 
     {% if app.user %}

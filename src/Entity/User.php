@@ -73,6 +73,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTime $createdAt = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Token $activationToken = null;
+
+    #[ORM\Column]
+    private ?bool $activated = false;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -209,6 +216,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTime $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getActivationToken(): ?Token
+    {
+        return $this->activationToken;
+    }
+
+    public function setActivationToken(Token $activationToken): static
+    {
+        $this->activationToken = $activationToken;
+
+        return $this;
+    }
+
+    public function isActivated(): ?bool
+    {
+        return $this->activated;
+    }
+
+    public function setActivated(bool $activated): static
+    {
+        $this->activated = $activated;
 
         return $this;
     }
