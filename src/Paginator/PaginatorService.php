@@ -15,6 +15,8 @@ class PaginatorService
 {
     private int $currentPage;
 
+    private string $search;
+
     private int $limit;
 
     /**
@@ -60,6 +62,7 @@ class PaginatorService
 
         $this->limit = intval($request->get('limit', $this->getDefaultPage($repository)));
         $this->currentRoute = $currentRoute;
+        $this->search = $request->get('q', '');
         if ($this->currentPage < 1) {
             return [
                 'code' => Response::HTTP_BAD_REQUEST,
@@ -84,9 +87,10 @@ class PaginatorService
         $this->data = $repository->searchAndPaginate(
             $this->limit,
             ($this->currentPage - 1) * $this->limit,
-            $this->currentRoute
+            $this->currentRoute,
+            $this->search
         );
-        $this->countItemsTotal = count($repository->searchAndPaginate(null, null, $this->currentRoute));
+        $this->countItemsTotal = count($repository->searchAndPaginate(null, null, $this->currentRoute, $this->search));
         $this->lastPage = intval(ceil($this->countItemsTotal / $this->limit));
 
         return null;

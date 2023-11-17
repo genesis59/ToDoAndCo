@@ -1,40 +1,29 @@
 <?php
 
-namespace App\Controller\User;
+namespace App\Controller\Task;
 
 use App\Form\SearchType;
 use App\Paginator\PaginatorService;
-use App\Repository\UserRepository;
+use App\Repository\TaskRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-class UserController extends AbstractController
+class TaskTodoController extends AbstractController
 {
-    #[Route(path: '/users', name: 'user_list')]
-    public function __invoke(
-        Request $request,
-        TranslatorInterface $translator,
-        PaginatorService $paginatorService,
-        UserRepository $userRepository
-    ): Response {
-        if (!$this->isGranted('USER_VIEW', $this->getUser())) {
-            $this->addFlash('error', $translator->trans('app.flashes.user.denied_access'));
-
-            return $this->redirectToRoute('homepage');
-        }
+    #[Route(path: '/tasks/todo', name: 'task_list_todo')]
+    public function __invoke(Request $request, TaskRepository $taskRepository, PaginatorService $paginatorService): Response
+    {
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $request->request->set('q', $form->get('q')->getData());
         }
-
         $paginationError = $paginatorService->create(
-            $userRepository,
+            $taskRepository,
             $request,
-            'user_list'
+            'task_list_todo'
         );
         if ($paginationError) {
             $this->addFlash('error', $paginationError['message']);
@@ -46,9 +35,9 @@ class UserController extends AbstractController
             return $response;
         }
 
-        return $this->render('user/list.html.twig', [
+        return $this->render('task/list_todo.html.twig', [
             'form' => $form->createView(),
-            'users' => $paginatorService->getData(),
+            'tasks' => $paginatorService->getData(),
             'currentPage' => $paginatorService->getCurrentPage(),
             'firstPage' => $paginatorService->getUrlFirstPage(),
             'lastPage' => $paginatorService->getUrlLastPage(),

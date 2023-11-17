@@ -26,23 +26,33 @@ class TaskRepository extends ServiceEntityRepository
     /**
      * @return Task[] Returns an array of Customer objects
      */
-    public function searchAndPaginate(?int $limit, ?int $offset, string $routeName = null): array
+    public function searchAndPaginate(?int $limit, ?int $offset, string $routeName = null, string $search = null): array
     {
-        $isDone = true;
-        if ($routeName === 'task_list_todo') {
-            $isDone = false;
-        }
-        $qb = $this->createQueryBuilder('t');
-        $qb->where('t.owner = :user');
+        $parameters = [];
+        // Utilisateur
+        $exprUser = 't.owner = :user';
+        $parameters['user'] = $this->security->getUser();
         if (in_array(User::ROLE_ADMIN, $this->security->getUser()->getRoles())) {
-            $qb->orWhere('t.owner = :anonyme')
-                ->setParameter('anonyme', 1);
+            $exprUser = 't.owner = :user OR t.owner = :anonyme';
+            $parameters['anonyme'] = 1;
         }
-        $qb->setParameter('user', $this->security->getUser());
+        $qb = $this->createQueryBuilder('t')->where($exprUser);
+        // Recherche
+        if ($search !== null) {
+            $qb->andWhere('LOWER(t.title) LIKE :search OR LOWER(t.content) LIKE :search');
+            $parameters['search'] = '%'.strtolower($search).'%';
+        }
+        // État de la tâche faite/non faite
         if ($routeName) {
-            $qb->andWhere('t.isDone = :isDone')
-                ->setParameter('isDone', $isDone);
+            $isDone = true;
+            if ($routeName === 'task_list_todo') {
+                $isDone = false;
+            }
+            $qb->andWhere('t.isDone = :isDone');
+            $parameters['isDone'] = $isDone;
         }
+        $qb->setParameters($parameters);
+        // Pagination
         $qb->orderBy('t.createdAt', 'DESC');
         if ($limit !== null) {
             $qb->setMaxResults($limit);

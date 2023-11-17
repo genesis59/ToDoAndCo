@@ -44,12 +44,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @return User[] Returns an array of Customer objects
      */
-    public function searchAndPaginate(?int $limit, ?int $offset, string $routeName = null): array
+    public function searchAndPaginate(?int $limit, ?int $offset, string $routeName = null, string $search = null): array
     {
         $qb = $this->createQueryBuilder('u');
+
         $qb->where('u.id != :id')
-            ->setParameter('id', 1)
-            ->orderBy('u.createdAt', 'DESC');
+            ->setParameter('id', 1);
+
+        // Recherche
+        if ($search !== null) {
+            $qb->andWhere('LOWER(u.username) LIKE :search OR LOWER(u.email) LIKE :search')
+                ->setParameter('search', '%'.strtolower($search).'%');
+        }
+        $qb->orderBy('u.createdAt', 'DESC');
         if ($limit !== null) {
             $qb->setMaxResults($limit);
         }

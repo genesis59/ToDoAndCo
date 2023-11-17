@@ -5,6 +5,7 @@
 
 {% block body %}
     <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.user.list.sub_title'|trans }}</h2>
+    {% include 'components/_userSortBar.html.twig' %}
     <div class="row mt-4">
         <table class="table table-responsive">
             <thead>

@@ -113,6 +113,9 @@ app:
           password_label: Saisissez votre mot de passe
           submit: Valider
     component:
+      taskBar:
+        search_label: Rechercher
+        search_text: Entrer le mot recherché ici
       pagination:
         page: page
         next: Suivante
