@@ -47,9 +47,6 @@ class TaskVoter extends Voter
 
     private function canEdit(Task $subject, UserInterface $user): bool
     {
-        if ($subject->getOwner()->getUsername() === 'Anonyme' && in_array(User::ROLE_ADMIN, $user->getRoles())) {
-            return true;
-        }
         if ($subject->getOwner() === $user) {
             return true;
         }

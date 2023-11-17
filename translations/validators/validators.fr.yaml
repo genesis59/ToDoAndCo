@@ -1,5 +1,7 @@
 validator:
   unique_entity: Désolé, cette valeur existe déjà.
+  search:
+    not_blank: La recherche ne peut être vide
   user:
     username:
       not_blank: Le nom de l'utilisateur ne peut être vide

@@ -18,9 +18,7 @@ class UserEditType extends AbstractType
      */
     private function getRoleData(array $options): string
     {
-        /** @var User $user */
-        $user = $options['data'];
-        if (in_array(User::ROLE_ADMIN, $user->getRoles())) {
+        if (in_array(User::ROLE_ADMIN, $options['roles'])) {
             return User::ROLE_ADMIN;
         }
 
@@ -37,21 +35,15 @@ class UserEditType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => $this->translator->trans('app.form.user.name'),
+                'data' => $options['username'],
                 'label_attr' => ['class' => 'ps-1 mt-4'],
                 'attr' => ['class' => 'mt-1'],
             ])
             ->add('email', EmailType::class, [
                 'label' => $this->translator->trans('app.form.user.email'),
+                'data' => $options['email'],
                 'label_attr' => ['class' => 'ps-1 mt-4'],
                 'attr' => ['class' => 'mt-1'],
-            ])
-            ->add('password', TextType::class, [
-                'required' => false,
-                'data' => '..Password1234..',
-                'label' => false,
-                'attr' => [
-                    'hidden' => true,
-                ],
             ])
             ->add('roles', ChoiceType::class, [
                 'mapped' => false,
@@ -72,7 +64,10 @@ class UserEditType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => null,
+            'username' => null,
+            'email' => null,
+            'roles' => null,
         ]);
     }
 }

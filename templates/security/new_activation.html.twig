@@ -1,0 +1,12 @@
+{% extends './base.html.twig' %}
+{% block title %}{{ 'app.twig.page.security.new_activation.sub_title'|trans }}{% endblock %}
+{% block header_img %}{% endblock %}
+{% block body %}
+    <div class="row">
+        <h2 class="mt-5 text-uppercase fw-bold">{{ 'app.twig.page.security.new_activation.sub_title2'|trans }}</h2>
+        {{ form_start(form, {'action' : path('user_new_activation')}) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary mt-5 mb-4">{{ 'app.twig.page.security.new_activation.submit'|trans }}</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

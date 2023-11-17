@@ -1,0 +1,14 @@
+{% extends 'emails/base.html.twig' %}
+
+{% block title %}{{ 'app.email.activation.title'|trans }}{% endblock %}
+{% block content %}
+    <p>
+        {{ 'app.email.activation.content_1'|trans }}
+    </p>
+    <p>
+        {{ 'app.email.activation.content_2'|trans }}
+    </p>
+{% endblock %}
+{% block button %}
+    <a target="_blank" style="text-decoration:none; color:#f8f9fb; display:block; padding:12px 10px 10px;" href="{{ sign_url }}">{{ 'app.email.activation.base_button'|trans }}</a>
+{% endblock %}

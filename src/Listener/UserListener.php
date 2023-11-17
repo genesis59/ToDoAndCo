@@ -2,6 +2,7 @@
 
 namespace App\Listener;
 
+use App\Entity\Token;
 use App\Entity\User;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -21,6 +22,7 @@ readonly class UserListener
         }
         $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
         $user->setCreatedAt(new \DateTime());
+        $user->setActivationToken(new Token());
         $user->setUuid(Uuid::v4());
     }
 }

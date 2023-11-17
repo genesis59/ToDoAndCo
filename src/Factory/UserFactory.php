@@ -2,6 +2,7 @@
 
 namespace App\Factory;
 
+use App\Entity\Token;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Zenstruck\Foundry\ModelFactory;
@@ -46,6 +47,8 @@ final class UserFactory extends ModelFactory
             'email' => self::faker()->email(),
             'password' => 'password',
             'createdAt' => self::faker()->dateTime(),
+            'activationToken' => new Token(),
+            'activated' => true,
             'roles' => [],
             'username' => self::faker()->name(),
         ];

@@ -1,8 +1,19 @@
 app:
   name: TodoAndCo
   flashes:
+    new_activation:
+      success: Un email contenant un lien d'activation a été envoyé.
+      error: Adresse email invalide.
+      already_activation: Votre compte est déjà activé.
+    activation:
+      success: Votre compte a bien été activé. Il ne reste plus qu'à vous connecter.
+      error: L'activation a rencontrée un problème. Veuillez réessayer.
+      invalid_token: Désolé, le lien utilisé est corrompu.
+      already_activation: Votre compte est déjà activé.
+      activation_time: votre lien d'activation de compte est arrivé à expiration. Veuillez renseigner votre adresse email pour en recevoir un nouveau.
+      new_activation_error: Adresse email invalide.
     user:
-      created: L'utilisateur a bien été ajouté.
+      created: Inscription réussie! Un message d'activation a été envoyé à votre adresse email.
       updated: L'utilisateur a bien été modifié.
       denied_access: Désolé, vous n'avez pas les autorisations pour accéder à cette partie du site.
     task:
@@ -10,9 +21,13 @@ app:
       updated: La tâche a bien été modifiée.
       deleted: La tâche a bien été supprimée.
       is_done: La tâche %task% a bien été marquée comme faite.
+      is_not_done: La tâche %task% a bien été marquée comme non terminée.
       user_not_authorized_to_delete: Désolé, vous n'avez pas les autorisations pour supprimer cette tâche.
       user_not_authorized_to_edit: Désolé, vous n'avez pas les autorisations pour modifier cette tâche.
   form:
+    new_activation:
+      email: Votre email
+      button_submit: Valider
     task:
       title: Saisissez votre titre
       content: Saisissez votre contenu
@@ -30,6 +45,13 @@ app:
     bad_request_http_exception_page: Le paramètre page que vous avez renseigné doit être un entier supérieur ou égal à 1
     bad_request_http_exception_limit: Le paramètre limit que vous avez renseigné doit être un entier supérieur ou égal à 1
     bad_method_call_exception_searchAndPaginate : Nous rencontrons un problème la méthode de pagination n'existe pas.
+  email:
+    activation:
+      subject: ToDoAndCo, Activation de votre compte
+      title: Activation du compte
+      content_1: Merci pour votre inscription, merci de cliquer sur le bouton ci dessous pour finaliser votre inscription.
+      content_2: À bientôt sur ToDoAndCo.
+      base_button: Activer mon compte
   twig:
     page:
       task:
@@ -69,13 +91,20 @@ app:
           th_email: Email
           th_role: rôles
           th_action: Actions
+          th_created_at: date de création
         edit:
           sub_title: Modifier
         create:
           submit: Soumettre la création
           sub_title: Création d'un utilisateur
       security:
+        new_activation:
+          sub_title: Nouvelle activation
+          sub_title2: Recevoir un nouvelle email d'activation
+          submit: Valider
         login:
+          not_already_activated: Votre compte n'a pas encore été activé.
+          new_activation: Souhaitez-vous recevoir un nouveau lien d'activation sur votre boîte mail ?
           already_log: Vous êtes déjà connecté en tant que
           logout: Se déconnecter
           header_title: Espace d'authentification
@@ -84,6 +113,9 @@ app:
           password_label: Saisissez votre mot de passe
           submit: Valider
     component:
+      taskBar:
+        search_label: Rechercher
+        search_text: Entrer le mot recherché ici
       pagination:
         page: page
         next: Suivante

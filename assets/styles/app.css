@@ -123,6 +123,17 @@ select:focus {
 .page-link:hover {
     color: var(--custom-grey-green-black);
 }
+.alert-info {
+    background-color: var(--custom-grey-green-light);
+    border-color: var(--custom-grey-green-light)!important;
+    color: white;
+}
+.alert-info a {
+    color: var(--custom-grey-green-black-light);
+}
+.alert-info a:hover {
+    color: var(--custom-grey-green-black);
+}
 /* END Override bootstrap*/
 
 .task-title {

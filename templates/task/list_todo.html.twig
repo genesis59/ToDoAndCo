@@ -6,6 +6,7 @@
 
 {% block body %}
     <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.task.list.sub_title_task_todo'|trans }}</h2>
+    {% include 'components/_taskSortBar.html.twig' %}
     {% if tasks != null %}
     <div class="row">
         {% for task in tasks %}
@@ -13,16 +14,16 @@
                 {% include 'components/_list_task.html.twig' %}
             {% endif %}
         {% endfor %}
-        {% if tasks|length == 0 %}
-            <div class="alert alert-success mt-4" role="alert">
-                {% if tasks|length == 0 %}
-                    {{ 'app.twig.page.task.list.no_todo_todo'|trans }}
-                {% endif %}
-            </div>
-        {% endif %}
     </div>
     <div class="d-flex justify-content-center mt-5">
         {% include 'components/_pagination.html.twig' %}
     </div>
+    {% endif %}
+    {% if tasks|length == 0 %}
+        <div class="alert alert-success mt-4" role="alert">
+            {% if tasks|length == 0 %}
+                {{ 'app.twig.page.task.list.no_todo_todo'|trans }}
+            {% endif %}
+        </div>
     {% endif %}
 {% endblock %}
