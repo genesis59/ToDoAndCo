@@ -65,8 +65,6 @@ app:
           not_finished: Marquer non terminée
           delete: Supprimer
           edit: Modifier
-          no_todo_todo: Il n'y a pas de tâche à faire.
-          no_todo_do: Il n'y a pas de tâche terminées.
         create:
           sub_title: Création d'une tâche
           cancel_button: Annuler
@@ -85,7 +83,8 @@ app:
             create: Créer une nouvelle tâche
       user:
         list:
-          create_user:
+          no_user: Aucun utilisateur trouvé
+          edit_button: Éditer
           sub_title: Liste des utilisateurs
           th_user: Nom
           th_email: Email
@@ -113,9 +112,13 @@ app:
           password_label: Saisissez votre mot de passe
           submit: Valider
     component:
-      taskBar:
+      tasks:
+        no_task: Aucune tâche trouvée dans les résultats.
+      users:
+        no_user: Aucune utilisateur trouvé
+      searchBar:
         search_label: Rechercher
-        search_text: Entrer le mot recherché ici
+        search_text: Entrer la recherche ici
       pagination:
         page: page
         next: Suivante
@@ -126,8 +129,8 @@ app:
         login: Se connecter
         signup: Créer un utilisateur
         logout: Se déconnecter
-        tasks_todo: Liste des tâches à faire
-        tasks_do: Liste des tâches terminées
+        tasks_todo: Tâches à faire
+        tasks_do: Tâches terminées
         create_task: Créer une tâche
         homepage: Tableau de bord
         admin: Administration

@@ -2,7 +2,6 @@
 
 namespace App\Controller\User;
 
-use App\Form\SearchType;
 use App\Paginator\PaginatorService;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,35 +24,28 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('homepage');
         }
-        $form = $this->createForm(SearchType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $request->request->set('q', $form->get('q')->getData());
-        }
-
-        $paginationError = $paginatorService->create(
-            $userRepository,
-            $request,
-            'user_list'
-        );
+        $paginationError = $paginatorService->create($userRepository, $request, 'user_list');
         if ($paginationError) {
             $this->addFlash('error', $paginationError['message']);
-            $response = $this->render('task/list_todo.html.twig', [
-                'tasks' => null,
-            ]);
+            $response = $this->render('task/list_todo.html.twig', ['tasks' => null]);
             $response->setStatusCode(intval($paginationError['code']));
 
             return $response;
         }
-
-        return $this->render('user/list.html.twig', [
-            'form' => $form->createView(),
+        $parameters = [
             'users' => $paginatorService->getData(),
+            'search' => $paginatorService->getSearch(),
             'currentPage' => $paginatorService->getCurrentPage(),
+            'currentLimit' => $paginatorService->getLimit(),
             'firstPage' => $paginatorService->getUrlFirstPage(),
             'lastPage' => $paginatorService->getUrlLastPage(),
             'nextPage' => $paginatorService->getUrlNextPage(),
             'previousPage' => $paginatorService->getUrlPreviousPage(),
-        ]);
+        ];
+        if ($request->query->get('preview')) {
+            return $this->render('components/user/_users.html.twig', $parameters);
+        }
+
+        return $this->render('user/users.html.twig', $parameters);
     }
 }
