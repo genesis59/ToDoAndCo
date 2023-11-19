@@ -16,14 +16,14 @@ class TaskEditController extends AbstractController
     #[Route(path: '/tasks/{uuid}/edit', name: 'task_edit')]
     public function __invoke(Task $task, Request $request, TranslatorInterface $translator, ManagerRegistry $managerRegistry): Response
     {
-        $response = $this->redirectToRoute('task_list_todo');
+        $routeName = 'task_list_todo';
         if ($task->isDone()) {
-            $response = $this->redirectToRoute('task_list_finished');
+            $routeName = 'task_list_finished';
         }
         if (!$this->isGranted('TASK_EDIT', $task)) {
             $this->addFlash('error', $translator->trans('app.flashes.task.user_not_authorized_to_edit'));
 
-            return $response;
+            return $this->redirectToRoute($routeName);
         }
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
@@ -31,7 +31,7 @@ class TaskEditController extends AbstractController
             $managerRegistry->getManager()->flush();
             $this->addFlash('success', $translator->trans('app.flashes.task.updated'));
 
-            return $response;
+            return $this->redirectToRoute($routeName);
         }
 
         return $this->render('task/edit.html.twig', [

@@ -26,6 +26,7 @@ class TaskTodoController extends AbstractController
             'tasks' => $paginatorService->getData(),
             'search' => $paginatorService->getSearch(),
             'currentPage' => $paginatorService->getCurrentPage(),
+            'currentLimit' => $paginatorService->getLimit(),
             'firstPage' => $paginatorService->getUrlFirstPage(),
             'lastPage' => $paginatorService->getUrlLastPage(),
             'nextPage' => $paginatorService->getUrlNextPage(),

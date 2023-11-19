@@ -15,20 +15,20 @@ class TaskDeleteController extends AbstractController
     #[Route(path: '/tasks/{uuid}/delete', name: 'task_delete')]
     public function __invoke(Request $request, Task $task, TranslatorInterface $translator, ManagerRegistry $managerRegistry): Response
     {
-        $response = $this->redirectToRoute('task_list_todo');
+        $routeName = 'task_list_todo';
         if ($task->isDone()) {
-            $response = $this->redirectToRoute('task_list_finished');
+            $routeName = 'task_list_finished';
         }
         if (!$this->isGranted('TASK_DELETE', $task)) {
             $this->addFlash('error', $translator->trans('app.flashes.task.user_not_authorized_to_delete'));
 
-            return $response;
+            return $this->redirectToRoute($routeName);
         }
         $em = $managerRegistry->getManager();
         $em->remove($task);
         $em->flush();
         $this->addFlash('success', $translator->trans('app.flashes.task.deleted'));
 
-        return $response;
+        return $this->redirectToRoute($routeName);
     }
 }

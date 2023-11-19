@@ -15,15 +15,15 @@ class TaskToggleController extends AbstractController
     public function __invoke(Task $task, ManagerRegistry $managerRegistry, TranslatorInterface $translator): Response
     {
         $task->toggle(!$task->isDone());
-        $response = $this->redirectToRoute('task_list_finished');
+        $routeName = 'task_list_finished';
         $message = 'app.flashes.task.is_not_done';
         if ($task->isDone()) {
             $message = 'app.flashes.task.is_done';
-            $response = $this->redirectToRoute('task_list_todo');
+            $routeName = 'task_list_todo';
         }
         $managerRegistry->getManager()->flush();
         $this->addFlash('success', $translator->trans($message, ['%task%' => $task->getTitle()]));
 
-        return $response;
+        return $this->redirectToRoute($routeName);
     }
 }
