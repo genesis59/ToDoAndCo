@@ -61,10 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Assert\NotBlank(message: 'validator.user.password.not_blank')]
     #[Assert\NotCompromisedPassword(message: 'validator.user.password.not_compromised_password')]
-    #[Assert\Regex(
-        pattern: '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-.,?;:§+!*$@%_])([-.,?;:§+!*$@%_\w]{8,255})$/',
-        message: 'validator.user.password.regex'
-    )]
+    #[Assert\PasswordStrength(['minScore' => Assert\PasswordStrength::STRENGTH_VERY_WEAK])]
     private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Task::class)]

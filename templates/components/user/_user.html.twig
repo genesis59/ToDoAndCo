@@ -1,0 +1,19 @@
+{% set formatted_roles = [] %}
+{% for role in user.roles %}
+    {% if roles_format[role] is defined %}
+        {% set formatted_roles = formatted_roles|merge([roles_format[role]]) %}
+    {% endif %}
+{% endfor %}
+{% if user.username != 'Anonyme' %}
+    <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.createdAt|format_datetime(locale=app.locale,pattern="dd MMMM YYYY, HH:mm")|capitalize }}</td>
+        <td>
+            [{{ formatted_roles|join(', ')|capitalize }}]
+        </td>
+        <td>
+            <a href="{{ path('user_edit', {'uuid' : user.uuid}) }}" class="btn btn-primary btn-sm">Edit</a>
+        </td>
+    </tr>
+{% endif %}

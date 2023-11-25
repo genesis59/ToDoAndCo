@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ 'app.twig.page.task.list.sub_title_task_do'|trans }}{% endblock %}
+{% block header_img %}
+    <img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">
+{% endblock %}
+
+{% block body %}
+    <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.task.list.sub_title_task_do'|trans }}</h2>
+    <div
+            {{ stimulus_controller('search-preview',{
+                url: path('task_list_finished'),
+                page: currentPage,
+                limit: currentLimit,
+                search: search
+            }) }}
+    >
+        {% include 'components/_searchBar.html.twig' %}
+        <div data-search-preview-target="resultSearch">
+            {% include 'components/task/_tasks.html.twig' %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+<div class="row mt-4">
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th>{{ 'app.twig.page.user.list.th_user'|trans|capitalize }}</th>
+            <th>{{ 'app.twig.page.user.list.th_email'|trans|capitalize }}</th>
+            <th>{{ 'app.twig.page.user.list.th_created_at'|trans|capitalize }}</th>
+            <th>{{ 'app.twig.page.user.list.th_role'|trans|capitalize }}</th>
+            <th>{{ 'app.twig.page.user.list.th_action'|trans|capitalize }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            {% include 'components/user/_user.html.twig' %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if users|length == 0 %}
+        <div class="alert alert-success mt-4" role="alert">
+            {{ 'app.twig.component.users.no_user'|trans }}
+        </div>
+    {% endif %}
+    <div class="d-flex justify-content-center mt-5">
+        {% include 'components/_pagination.html.twig' %}
+    </div>
+</div>

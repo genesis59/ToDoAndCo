@@ -2,15 +2,18 @@
 {% block title %}{{ 'app.twig.page.task.create.sub_title'|trans }}{% endblock %}
 {% block body %}
     <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.task.create.sub_title'|trans }}</h2>
-    <div class="row">
+    <div class="row" {{ stimulus_controller('ck-editor-classic') }}>
         {{ form_start(form, {'action' : path('task_create')}) }}
-            {{ form_widget(form) }}
-
+        {{ form_row(form.title) }}
+        {{ form_label(form.content) }}
+        <div id="toolbar-container" data-ck-editor-classic-target="toolbarContainer"></div>
+        <div id="editor-classic" class="form-control mt-1" data-ck-editor-classic-target="editorContainer"></div>
+        {{ form_errors(form.content) }}
         <div class="d-flex mt-4">
             <button type="submit" class="btn btn-primary pull-right">{{ 'app.twig.page.task.create.create_button'|trans }}</button>
             <a href="{{ path('homepage') }}" class="btn btn-primary ms-3">{{ 'app.twig.page.task.create.cancel_button'|trans }}</a>
         </div>
-
+        {{ form_widget(form.content,{'attr': {'class': 'invisible'}}) }}
         {{ form_end(form) }}
 
     </div>

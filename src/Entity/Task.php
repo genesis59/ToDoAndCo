@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\TaskRepository;
+use App\Validator\CkEditorLengthConstraint;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
+#[UniqueEntity(fields: ['title'], message: 'validator.unique_entity')]
 #[ORM\Table('task')]
 class Task
 {
@@ -27,10 +30,17 @@ class Task
     #[ORM\Column]
     private ?string $title = null;
 
-    #[Assert\Length(min: 10, max: 6000, minMessage: 'validator.task.content.length_min_message', maxMessage: 'validator.task.content.length_max_message')]
+    #[CkEditorLengthConstraint(
+        min: 10,
+        max: 6000,
+        maxMessageSingular: 'validator.task.content.length_max_message_singular',
+        maxMessagePlural: 'validator.task.content.length_max_message_plural',
+        minMessageSingular: 'validator.task.content.length_min_message_singular',
+        minMessagePlural: 'validator.task.content.length_min_message_plural'
+    )]
     #[Assert\NotBlank(message: 'validator.task.content.not_blank')]
     #[ORM\Column(type: 'text')]
-    private ?string $content = null;
+    private ?string $content = '';
 
     #[ORM\Column]
     private bool $isDone = false;

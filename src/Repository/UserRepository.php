@@ -6,6 +6,7 @@ use App\Entity\Token;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -22,7 +23,7 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private readonly Security $security)
     {
         parent::__construct($registry, User::class);
     }
@@ -48,8 +49,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $qb = $this->createQueryBuilder('u');
 
-        $qb->where('u.id != :id')
-            ->setParameter('id', 1);
+        $qb->where('u.id != :id AND u.email != :userEmail')
+            ->setParameter('id', 1)
+            ->setParameter('userEmail', $this->security->getUser()->getUserIdentifier());
 
         // Recherche
         if ($search !== null) {

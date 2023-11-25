@@ -62,7 +62,7 @@ class PaginatorService
 
         $this->limit = intval($request->get('limit', $this->getDefaultPage($repository)));
         $this->currentRoute = $currentRoute;
-        $this->search = $request->get('q', '');
+        $this->search = $request->get('search', '');
         if ($this->currentPage < 1) {
             return [
                 'code' => Response::HTTP_BAD_REQUEST,
@@ -100,7 +100,7 @@ class PaginatorService
     {
         return $this->urlGenerator->generate(
             $this->currentRoute,
-            ['limit' => $this->limit, 'page' => 1]
+            ['limit' => $this->limit, 'page' => 1, 'search' => $this->search]
         );
     }
 
@@ -108,7 +108,7 @@ class PaginatorService
     {
         return $this->urlGenerator->generate(
             $this->currentRoute,
-            ['limit' => $this->limit, 'page' => $this->lastPage]
+            ['limit' => $this->limit, 'page' => $this->lastPage, 'search' => $this->search]
         );
     }
 
@@ -116,7 +116,7 @@ class PaginatorService
     {
         return $this->currentPage < $this->lastPage ? $this->urlGenerator->generate(
             $this->currentRoute,
-            ['limit' => $this->limit, 'page' => $this->currentPage + 1]
+            ['limit' => $this->limit, 'page' => $this->currentPage + 1, 'search' => $this->search]
         ) : null;
     }
 
@@ -124,7 +124,7 @@ class PaginatorService
     {
         return $this->currentPage === 1 ? null : $this->urlGenerator->generate(
             $this->currentRoute,
-            ['limit' => $this->limit, 'page' => $this->currentPage - 1]
+            ['limit' => $this->limit, 'page' => $this->currentPage - 1, 'search' => $this->search]
         );
     }
 
@@ -159,5 +159,10 @@ class PaginatorService
     public function getCurrentRoute(): string
     {
         return $this->currentRoute;
+    }
+
+    public function getSearch(): string
+    {
+        return $this->search;
     }
 }
