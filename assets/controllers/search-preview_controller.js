@@ -1,16 +1,24 @@
 import { Controller } from '@hotwired/stimulus';
+import {useDebounce} from "stimulus-use";
 
 export default class extends Controller {
 
-    static targets = ['resultSearch']
+    static targets = ['resultSearch','searchInput']
+    static debounces = ['onSearchInputEvent']
     static values = {
         url: String,
         page: String,
         limit: String
     }
-    async onSearchInputEvent(event){
+
+    connect() {
+        super.connect();
+        useDebounce(this,{wait:200});
+    }
+
+    async onSearchInputEvent(){
         const params = new URLSearchParams({
-            search: event.currentTarget.value,
+            search: this.searchInputTarget.value,
             page: 1,
             limit: this.limitValue,
             preview: 1

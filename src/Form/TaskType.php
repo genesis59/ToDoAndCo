@@ -28,7 +28,11 @@ class TaskType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => $this->translator->trans('app.form.task.content'),
                 'label_attr' => ['class' => 'ps-1 mt-4'],
-                'attr' => ['class' => 'mt-1'],
+                'required' => false,
+                'empty_data' => '',
+                'attr' => [
+                    'data-ck-editor-classic-target' => 'hiddenTaskContent',
+                ],
             ])
         ;
     }

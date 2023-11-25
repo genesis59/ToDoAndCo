@@ -33,7 +33,7 @@ class TaskFinishedController extends AbstractController
             'previousPage' => $paginatorService->getUrlPreviousPage(),
         ];
         if ($request->query->get('preview')) {
-            return $this->render('components/_tasks.html.twig', $parameters);
+            return $this->render('components/task/_tasks.html.twig', $parameters);
         }
 
         return $this->render('task/tasks_finished.html.twig', $parameters);

@@ -25,6 +25,7 @@ class TaskEditController extends AbstractController
 
             return $this->redirectToRoute($routeName);
         }
+
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

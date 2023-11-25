@@ -21,8 +21,8 @@
                 {% endif %}
                 </h6>
             </div>
-            <div class="flex-grow-1 d-flex mt-2">
-                <p class="card-text text-justify align-self-center">{{ task.content }}</p>
+            <div class="flex-grow-1 card-overflow">
+                <p class="card-text text-justify align-self-center">{{ task.content|raw }}</p>
             </div>
             <div class="task-card-button-box">
                 {% if task.owner.id != 1 %}

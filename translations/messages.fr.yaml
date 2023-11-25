@@ -115,7 +115,7 @@ app:
       tasks:
         no_task: Aucune tâche trouvée dans les résultats.
       users:
-        no_user: Aucune utilisateur trouvé
+        no_user: Aucun utilisateur trouvé
       searchBar:
         search_label: Rechercher
         search_text: Entrer la recherche ici

@@ -24,7 +24,9 @@ validator:
       length_max_message: Le titre de la tâche est trop long. Il doit avoir au maximum {{ limit }} caractère.|Le titre de la tâche est trop long. IL doit avoir au maximum {{ limit }} caractères.
     content:
       not_blank: Le contenu ne peut être vide
-      length_min_message: Le contenu de la tâche est trop court. Il doit avoir au minimum {{ limit }} caractère.|Le contenu de la tâche est trop court. Il doit avoir au minimum {{ limit }} caractères.
-      length_max_message: Le contenu de la tâche est trop long. Il doit avoir au maximum {{ limit }} caractère.|Le contenu de la tâche est trop long. IL doit avoir au maximum {{ limit }} caractères.
+      length_min_message_singular: Le contenu de la tâche est trop court. Il doit avoir au minimum {{ limit }} caractère.
+      length_min_message_plural: Le contenu de la tâche est trop court. Il doit avoir au minimum {{ limit }} caractères.
+      length_max_message_singular: Le contenu de la tâche est trop long. Il doit avoir au maximum {{ limit }} caractère.
+      length_max_message_plural: Le contenu de la tâche est trop long. IL doit avoir au maximum {{ limit }} caractères.
 
 
