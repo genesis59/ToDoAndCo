@@ -1,0 +1,115 @@
+.bg-dark {
+  background-color: var(--custom-grey-green-black) !important;
+}
+
+.nav-link {
+  color: var(--custom-grey-green-light);
+  transition: 0.6s;
+}
+
+.nav-link:hover {
+  color: var(--custom-white);
+}
+
+.nav-link.active {
+  color: var(--custom-white) !important;
+}
+
+.nav-link.active:hover {
+  color: var(--custom-grey-green-black-light) !important;
+}
+
+.navbar-collapse {
+  flex-basis: 100%;
+  flex-grow: 0 !important;
+  align-items: center;
+}
+
+.navbar-brand {
+  color: var(--custom-white) !important;
+}
+
+.navbar-brand img {
+  width: 2.5rem;
+}
+
+.navbar-toggler {
+  background-color: var(--custom-grey-green-medium);
+  transition: 0.6s;
+}
+
+.navbar-toggler:hover {
+  background-color: var(--custom-grey-green-black);
+}
+
+.navbar {
+  z-index: 10;
+  border-bottom: 2px solid var(--custom-grey-green-light);
+}
+
+.btn-primary {
+  background-color: var(--custom-grey-green-medium);
+  border-color: var(--custom-grey-green-medium) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--custom-grey-green-black-light);
+  border-color: var(--custom-grey-green-medium) !important;
+}
+
+.btn-primary:active {
+  background-color: var(--custom-grey-green-black) !important;
+  border-color: var(--custom-grey-green-medium) !important;
+}
+
+input:focus {
+  outline-color: var(--custom-grey-green-light-shadow) !important;
+  border-color: var(--custom-grey-green-light-shadow) !important;
+  box-shadow: 0 0 0 0.25rem var(--custom-grey-green-light-shadow) !important;
+}
+
+select:focus {
+  outline-color: var(--custom-grey-green-light-shadow) !important;
+  border-color: var(--custom-grey-green-light-shadow) !important;
+  box-shadow: 0 0 0 0.25rem var(--custom-grey-green-light-shadow) !important;
+}
+
+.page-link.active {
+  color: var(--custom-white) !important;
+}
+
+.page-link {
+  color: var(--custom-grey-green-black-light);
+}
+
+.active > .page-link, .page-link.active {
+  background-color: var(--custom-grey-green-black-light) !important;
+  border-color: var(--custom-grey-green-light-shadow) !important;
+}
+
+.page-link:focus {
+  color: var(--custom-grey-green-black-light);
+  box-shadow: 0 0 0 0.25rem var(--custom-grey-green-light-shadow) !important;
+}
+
+.page-link:hover {
+  color: var(--custom-grey-green-black);
+}
+
+.alert-info {
+  background-color: var(--custom-grey-green-light);
+  border-color: var(--custom-grey-green-light) !important;
+  color: white;
+}
+
+.alert-info a {
+  color: var(--custom-grey-green-black-light);
+}
+
+.alert-info a:hover {
+  color: var(--custom-grey-green-black);
+}
+
+.task-card-button-box {
+  margin-top: 0 !important;
+}

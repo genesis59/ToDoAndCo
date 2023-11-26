@@ -1,0 +1,14 @@
+footer {
+  margin-top: 2rem;
+  height: 5rem;
+}
+
+.page {
+  min-height: 100vh;
+  flex-direction: column;
+  display: flex;
+}
+
+.content {
+  flex-grow: 1;
+}
