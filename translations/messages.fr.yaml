@@ -30,6 +30,7 @@ app:
       button_submit: Valider
     task:
       title: Saisissez votre titre
+      deadline: Saisissez une date limite (facultatif)
       content: Saisissez votre contenu
     user:
       name: Saisissez votre nom d'utilisateur
@@ -56,15 +57,25 @@ app:
     page:
       task:
         list:
-          previous_date_added: Ajouté le
-          previous_date_updated: Modifié le
-          previous_username: Par
+          previous_date_added: "Ajouté le:"
+          previous_date_updated: "Modifié le:"
+          previous_dead_line: "Date limite le:"
+          next_dead_line: "Éxpiré le:"
+          no_dead_line: "Pas de date limite"
+          previous_username: "Éditer par:"
           sub_title_task_todo: Liste des tâches à faire
           sub_title_task_do: Liste des tâches terminées
-          finished: Marquer comme faite
-          not_finished: Marquer non terminée
+          finished: Terminer
+          not_finished: Non terminé
           delete: Supprimer
           edit: Modifier
+          day: jour
+          hour: heure
+          minute: minute
+          second: seconde
+          rest_time_text: "Temps restant:"
+          time_finished: Trop tard!
+          expired: Trop tard! le délai est expiré.
         create:
           sub_title: Création d'une tâche
           cancel_button: Annuler

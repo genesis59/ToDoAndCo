@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Task;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,6 +24,13 @@ class TaskType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => $this->translator->trans('app.form.task.title'),
                 'label_attr' => ['class' => 'ps-1 mt-4'],
+                'attr' => ['class' => 'mt-1'],
+            ])
+            ->add('deadLine', DateTimeType::class, [
+                'label' => $this->translator->trans('app.form.task.deadline'),
+                'required' => false,
+                'label_attr' => ['class' => 'ps-1 mt-4'],
+                'widget' => 'single_text',
                 'attr' => ['class' => 'mt-1'],
             ])
             ->add('content', TextareaType::class, [

@@ -1,3 +1,4 @@
+import './datepicker'
 import './bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
@@ -8,4 +9,4 @@ import './bootstrap.js';
 
 // any CSS you import will output into a single css file (app.css in this case)
 require('bootstrap');
-import './styles/app.css';
+import './styles/app.scss';

@@ -1,48 +1,89 @@
+{% set textColorClass = 'text-success' %}
+{% set outlineColorClass = '' %}
+{% set now = 'now'|date("Y-m-d H:i:s", 'Europe/Paris') %}
+
+{% if task.deadLine != null and now < task.deadLine|date("Y-m-d H:i:s") and not task.isDone %}
+    {% set differenceInSeconds = (task.deadLine|date('U') - now|date('U', "Europe/Paris")) %}
+    {% set remainingHours = differenceInSeconds // 3600 %}
+    {% set remainingDays = remainingHours // 24 %}
+    {% set textColorClass = (remainingDays < 1 and remainingHours >= 1) ? 'text-warning' : (remainingHours < 1 ? 'text-danger' : 'text-success') %}
+    {% set outlineColorClass = (remainingDays < 1 and remainingHours >= 1) ? 'deadline-yellow' : (remainingHours < 1 ? 'deadline-red' : '') %}
+{% endif %}
+
 <div class="col-12 col-lg-4 mt-4">
     <div class="card h-100">
         <div class="card-body d-flex flex-column">
-            <div class="task-card-title-box">
-                <h5 class="card-title">
-                    <a class="task-title" href="{{ path('task_edit', {'uuid' : task.uuid }) }}">{{ task.title }}</a>
-                </h5>
-                <h6 class="card-subtitle my-2 text-muted">
-                    {% set date = null %}
-                    {% if task.updatedAt is null %}
-                        {{ 'app.twig.page.task.list.previous_date_added'|trans }}
-                        {% set date = task.createdAt %}
-                    {% endif %}
-                    {% if task.updatedAt is not null %}
-                        {{ 'app.twig.page.task.list.previous_date_updated'|trans }}
-                        {% set date = task.updatedAt %}
-                    {% endif %}
-                    {{ date|format_datetime(locale=app.locale,pattern="dd MMMM YYYY, HH:mm")|capitalize }}
-                {% if 'ROLE_ADMIN' in app.user.roles %}
-                    {{ 'app.twig.page.task.list.previous_username'|trans|capitalize }} {{ task.owner.username }}
-                {% endif %}
-                </h6>
-            </div>
-            <div class="flex-grow-1 card-overflow">
-                <p class="card-text text-justify align-self-center">{{ task.content|raw }}</p>
-            </div>
-            <div class="task-card-button-box">
-                {% if task.owner.id != 1 %}
-                <form action="{{ path('task_toggle', {'uuid' : task.uuid }) }}">
-                    <button class="btn btn-primary btn-sm">
-                        {% if task.isDone %}
-                            {{ 'app.twig.page.task.list.not_finished'|trans }}
+            <div class="card-box">
+                <div class="task-card-title-box p-3">
+                    <h5 class="card-title d-flex justify-content-center mb-4">
+                        <a class="task-title" href="{{ path('task_edit', {'uuid' : task.uuid }) }}">{{ task.title }}</a>
+                    </h5>
+                    <h6 class="card-subtitle my-2 text-muted">
+                        {% set date = null %}
+                        {% if task.updatedAt is null %}
+                            {{ 'app.twig.page.task.list.previous_date_added'|trans }}
+                            {% set date = task.createdAt %}
                         {% endif %}
-                        {% if not task.isDone %}
-                            {{ 'app.twig.page.task.list.finished'|trans }}
+                        {% if task.updatedAt is not null %}
+                            {{ 'app.twig.page.task.list.previous_date_updated'|trans }}
+                            {% set date = task.updatedAt %}
                         {% endif %}
-                    </button>
-                </form>
-                <form action="{{ path('task_edit', {'uuid' : task.uuid }) }}">
-                    <button class="btn btn-primary btn-sm ms-3">{{ 'app.twig.page.task.list.edit'|trans }}</button>
-                </form>
-                {% endif %}
-                <form action="{{ path('task_delete', {'uuid' : task.uuid }) }}">
-                    <button class="btn btn-primary btn-sm ms-3">{{ 'app.twig.page.task.list.delete'|trans }}</button>
-                </form>
+                        <span class="text-success">{{ date|format_datetime(locale=app.locale,pattern="dd MMMM YYYY, HH:mm")|capitalize }}</span>
+                    </h6>
+                    <h6 class="card-subtitle my-2 text-muted">
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                            {{ 'app.twig.page.task.list.previous_username'|trans|capitalize }}  <span class="text-success">{{ task.owner.username }}</span>
+                        {% endif %}
+                    </h6>
+                    {% if task.deadLine != null and not task.isDone %}
+                        <h6 class="card-subtitle my-2 text-muted">
+                            {{ 'app.twig.page.task.list.previous_dead_line'|trans }}
+                            <span class="text-success">{{ task.deadLine|format_datetime(locale=app.locale,pattern="dd MMMM YYYY, HH:mm")|capitalize }}</span>
+                        </h6>
+                    {% endif %}
+                    {% if task.deadLine != null and now < task.deadLine|date("Y-m-d H:i:s") and not task.isDone %}
+                        <h6 class="card-subtitle my-2 text-muted">
+                            {{ 'app.twig.page.task.list.rest_time_text'|trans }}
+                            <span class="{{ textColorClass }}" {{ stimulus_controller('counter',{
+                                deadLine: task.deadline|date('Y-m-d H:i:s'),
+                                day: 'app.twig.page.task.list.day'|trans,
+                                hour: 'app.twig.page.task.list.hour'|trans,
+                                minute: 'app.twig.page.task.list.minute'|trans,
+                                second: 'app.twig.page.task.list.second'|trans,
+                                finished: 'app.twig.page.task.list.time_finished'|trans,
+                            }) }}>
+                            </span>
+                        </h6>
+                    {% endif %}
+                    {% if task.deadLine != null and now >= task.deadLine|date("Y-m-d H:i:s") and not task.isDone %}
+                        <h6 class="card-subtitle my-2 text-danger">
+                            {{ 'app.twig.page.task.list.expired'|trans }}
+                        </h6>
+                    {% endif %}
+                </div>
+                <div class="flex-grow-1 card-overflow">
+                    <p class="card-text text-justify align-self-center">{{ task.content|raw }}</p>
+                </div>
+                <div class="task-card-button-box">
+                    {% if task.owner.id != 1 %}
+                        <form action="{{ path('task_toggle', {'uuid' : task.uuid }) }}">
+                            <button class="btn btn-primary btn-sm">
+                                {% if task.isDone %}
+                                    {{ 'app.twig.page.task.list.not_finished'|trans }}
+                                {% endif %}
+                                {% if not task.isDone %}
+                                    {{ 'app.twig.page.task.list.finished'|trans }}
+                                {% endif %}
+                            </button>
+                        </form>
+                        <form action="{{ path('task_edit', {'uuid' : task.uuid }) }}">
+                            <button class="btn btn-primary btn-sm ms-3">{{ 'app.twig.page.task.list.edit'|trans }}</button>
+                        </form>
+                    {% endif %}
+                    <form action="{{ path('task_delete', {'uuid' : task.uuid }) }}">
+                        <button class="btn btn-primary btn-sm ms-3">{{ 'app.twig.page.task.list.delete'|trans }}</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

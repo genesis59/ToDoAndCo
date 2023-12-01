@@ -1,0 +1,48 @@
+/*!
+ * Start Bootstrap - Shop Homepage (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+@import "~bootstrap";
+@import "components/bootstrap-override.scss";
+@import "components/task-card.scss";
+@import "components/home-card.scss";
+@import "components/ckeditor.scss";
+@import "components/header.scss";
+@import "components/footer.scss";
+
+:root {
+  --custom-black: #0D0000;
+  --custom-white: #F2F2F2;
+  --custom-grey-green-black: #112620;
+  --custom-grey-green-black-shadow: rgb(17, 38, 32, .3);
+  --custom-grey-green-black-light: #385659;
+  --custom-grey-green-medium: #516F73;
+  --custom-grey-green-medium-shadow: rgba(81, 111, 115, .25);
+  --custom-grey-green-light: #8AA3A6;
+  --custom-grey-green-light-shadow: rgba(138, 163, 166, .25);
+  --dead-line-alert-yellow: rgba(255, 242, 45, 1);
+  --dead-line-alert-red: rgba(211, 50, 11, 1);
+}
+
+body, html {
+  box-sizing: border-box;
+  background-color: var(--custom-white);
+  font-family: "times", sans-serif;
+  font-size: 1.1rem;
+}
+
+h2 {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.2vw;
+  font-weight: 700;
+  font-size: 2em;
+  color: var(--custom-grey-green-black);
+}
+
+a {
+  text-decoration: none;
+}
+
+

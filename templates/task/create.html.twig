@@ -5,6 +5,9 @@
     <div class="row" {{ stimulus_controller('ck-editor-classic') }}>
         {{ form_start(form, {'action' : path('task_create')}) }}
         {{ form_row(form.title) }}
+        <div class="col-12 col-md-6">
+            {{ form_row(form.deadLine) }}
+        </div>
         {{ form_label(form.content) }}
         <div id="toolbar-container" data-ck-editor-classic-target="toolbarContainer"></div>
         <div id="editor-classic" class="form-control mt-1" data-ck-editor-classic-target="editorContainer"></div>

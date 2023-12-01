@@ -1,0 +1,8 @@
+.ck.ck-editor__editable_inline:focus {
+  border: 1px solid var(--custom-grey-green-light-shadow) !important;
+  outline: 3px solid var(--custom-grey-green-light-shadow) !important;
+}
+
+.ck .ck-balloon-panel {
+  visibility: hidden;
+}

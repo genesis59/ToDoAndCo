@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TaskRepository;
 use App\Validator\CkEditorLengthConstraint;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
@@ -51,6 +52,10 @@ class Task
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Assert\GreaterThan(value: new \DateTime(), message: 'validator.task.deadline.greater_than')]
+    private ?\DateTimeInterface $deadLine = null;
 
     public function __construct()
     {
@@ -144,6 +149,18 @@ class Task
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getDeadLine(): ?\DateTimeInterface
+    {
+        return $this->deadLine;
+    }
+
+    public function setDeadLine(?\DateTimeInterface $deadLine): static
+    {
+        $this->deadLine = $deadLine;
 
         return $this;
     }
