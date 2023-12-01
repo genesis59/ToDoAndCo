@@ -110,6 +110,11 @@ select:focus {
   color: var(--custom-grey-green-black);
 }
 
-.task-card-button-box {
-  margin-top: 0 !important;
+.list-unstyled {
+  color: var(--custom-white);
+  background-color: var(--dead-line-alert-red);
+  border-radius: 5px;
+  padding: 5px 20px 5px 20px;
+  margin-top: .5rem;
+  margin-bottom: 0;
 }

@@ -28,5 +28,7 @@ validator:
       length_min_message_plural: Le contenu de la tâche est trop court. Il doit avoir au minimum {{ limit }} caractères.
       length_max_message_singular: Le contenu de la tâche est trop long. Il doit avoir au maximum {{ limit }} caractère.
       length_max_message_plural: Le contenu de la tâche est trop long. IL doit avoir au maximum {{ limit }} caractères.
+    deadline:
+      greater_than: La date et l'heure doivent être ultérieures à la date actuelle.
 
 

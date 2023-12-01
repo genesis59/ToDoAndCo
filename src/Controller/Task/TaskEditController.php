@@ -29,6 +29,7 @@ class TaskEditController extends AbstractController
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $task->setUpdatedAt(new \DateTimeImmutable());
             $managerRegistry->getManager()->flush();
             $this->addFlash('success', $translator->trans('app.flashes.task.updated'));
 
