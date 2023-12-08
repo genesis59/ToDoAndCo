@@ -55,6 +55,15 @@ app:
       base_button: Activer mon compte
   twig:
     page:
+      error:
+        404:
+          sub_title: Oups ! Page introuvable
+        500:
+          sub_title: Erreur interne du serveur
+        401:
+          sub_title: Accès non autorisé
+        403:
+          sub_title: Accès interdit
       task:
         list:
           previous_date_added: "Ajouté le:"

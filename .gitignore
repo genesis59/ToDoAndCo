@@ -36,6 +36,7 @@ phpstan.neon
 ###< phpstan/phpstan ###
 
 /tools/php-cs-fixer/vendor/
+/tools/coverage-html/
 /.php-cs-fixer.cache
 
 ###> symfony/webpack-encore-bundle ###
@@ -44,3 +45,10 @@ phpstan.neon
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+cachegrind.out.133757.gz
+cachegrind.out.133758.gz

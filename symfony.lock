@@ -1,4 +1,16 @@
 {
+    "dama/doctrine-test-bundle": {
+        "version": "8.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "4.0",
+            "ref": "2c920f73a217f30bd4a37833c91071f4d3dc1ecd"
+        },
+        "files": [
+            "config/packages/test/dama_doctrine_test_bundle.yaml"
+        ]
+    },
     "doctrine/annotations": {
         "version": "2.0",
         "recipe": {
@@ -48,18 +60,6 @@
             "migrations/.gitignore"
         ]
     },
-    "eightpoints/guzzle-bundle": {
-        "version": "8.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "7.0",
-            "ref": "7babb21a3928e44e485391907e3abc346804e0d2"
-        },
-        "files": [
-            "config/packages/eight_points_guzzle.yaml"
-        ]
-    },
     "phpstan/phpstan": {
         "version": "1.10",
         "recipe": {
@@ -70,6 +70,20 @@
         },
         "files": [
             "phpstan.dist.neon"
+        ]
+    },
+    "phpunit/phpunit": {
+        "version": "9.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "9.6",
+            "ref": "7364a21d87e658eb363c5020c072ecfdc12e2326"
+        },
+        "files": [
+            ".env.test",
+            "phpunit.xml.dist",
+            "tests/bootstrap.php"
         ]
     },
     "symfony/console": {

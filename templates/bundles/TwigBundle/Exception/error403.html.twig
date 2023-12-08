@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ 'app.twig.page.error.403.sub_title'|trans }}{% endblock %}
+{% block body %}
+    <h2 class="mt-4 text-uppercase fw-bold">{{ 'app.twig.page.error.403.sub_title'|trans }}</h2>
+    <div class="container img-error-container">
+        <img src="{{ asset('img/error.jpg') }}" alt="page erreur" class="img-error">
+    </div>
+
+{% endblock %}
