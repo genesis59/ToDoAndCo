@@ -17,7 +17,7 @@ class Task
 {
     #[ORM\Column]
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     private ?int $id = null;
 
     #[ORM\Column(type: 'uuid')]
