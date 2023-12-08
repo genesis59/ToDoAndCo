@@ -1,7 +1,6 @@
 <?php
 
 return [
-    EightPoints\Bundle\GuzzleBundle\EightPointsGuzzleBundle::class => ['all' => true],
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
@@ -15,4 +14,5 @@ return [
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     Symfony\UX\StimulusBundle\StimulusBundle::class => ['all' => true],
+    DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
 ];

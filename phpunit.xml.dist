@@ -5,7 +5,7 @@
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="tests/bootstrap.php"
+         bootstrap="src/Tests/bootstrap.php"
          convertDeprecationsToExceptions="false"
 >
     <php>
@@ -17,8 +17,8 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>tests</directory>
+        <testsuite name="App">
+            <directory>src/Tests</directory>
         </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">
@@ -32,5 +32,6 @@
     </listeners>
 
     <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
     </extensions>
 </phpunit>
