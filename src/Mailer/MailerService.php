@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Mailer;
 
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\HttpKernel\UriSigner;
+use Symfony\Component\HttpFoundation\UriSigner;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\Transport\TransportInterface;
 
