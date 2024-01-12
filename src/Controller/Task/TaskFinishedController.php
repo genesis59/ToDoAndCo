@@ -17,10 +17,8 @@ class TaskFinishedController extends AbstractController
         $paginationError = $paginatorService->create($taskRepository, $request, 'task_list_finished');
         if ($paginationError) {
             $this->addFlash('error', $paginationError['message']);
-            $response = $this->render('task/list_finished.html.twig', ['tasks' => null]);
-            $response->setStatusCode(intval($paginationError['code']));
 
-            return $response;
+            return $this->redirectToRoute('homepage');
         }
         $parameters = [
             'tasks' => $paginatorService->getData(),

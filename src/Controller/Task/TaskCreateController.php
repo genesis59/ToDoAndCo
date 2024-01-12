@@ -3,14 +3,12 @@
 namespace App\Controller\Task;
 
 use App\Entity\Task;
-use App\Entity\User;
 use App\Form\TaskType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Uid\Uuid;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TaskCreateController extends AbstractController
@@ -22,10 +20,6 @@ class TaskCreateController extends AbstractController
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var User $user */
-            $user = $this->getUser();
-            $task->setOwner($user);
-            $task->setUuid(Uuid::v4());
             $em = $managerRegistry->getManager();
             $em->persist($task);
             $em->flush();

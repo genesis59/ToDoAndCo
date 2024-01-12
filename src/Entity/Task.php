@@ -17,7 +17,7 @@ class Task
 {
     #[ORM\Column]
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     private ?int $id = null;
 
     #[ORM\Column(type: 'uuid')]
@@ -82,11 +82,6 @@ class Task
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
     public function getTitle(): ?string
     {
         return $this->title;
@@ -115,11 +110,6 @@ class Task
     public function toggle(bool $flag): void
     {
         $this->isDone = $flag;
-    }
-
-    public function isIsDone(): ?bool
-    {
-        return $this->isDone;
     }
 
     public function setIsDone(bool $isDone): self

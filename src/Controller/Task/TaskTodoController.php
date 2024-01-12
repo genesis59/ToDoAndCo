@@ -17,10 +17,8 @@ class TaskTodoController extends AbstractController
         $paginationError = $paginatorService->create($taskRepository, $request, 'task_list_todo');
         if ($paginationError) {
             $this->addFlash('error', $paginationError['message']);
-            $response = $this->render('task/list_todo.html.twig', ['tasks' => null]);
-            $response->setStatusCode(intval($paginationError['code']));
 
-            return $response;
+            return $this->redirectToRoute('homepage');
         }
         $parameters = [
             'tasks' => $paginatorService->getData(),
