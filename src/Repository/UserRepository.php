@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Token;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -81,5 +82,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setActivated(true);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findRandomUserNotAnonymeAnNotEqualTo(int $userId): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.id != 1')
+            ->andWhere('u.id != :userId')
+            ->setParameter('userId', $userId)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

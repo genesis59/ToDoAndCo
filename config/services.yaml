@@ -27,6 +27,13 @@ services:
             - name: 'doctrine.orm.entity_listener'
               event: 'prePersist'
               entity: 'App\Entity\User'
+
+    App\Listener\TaskListener:
+      tags:
+        - name: 'doctrine.orm.entity_listener'
+          event: 'prePersist'
+          entity: 'App\Entity\Task'
+
     App\Listener\TokenListener:
         tags:
             - name: 'doctrine.orm.entity_listener'
