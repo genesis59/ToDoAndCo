@@ -16,7 +16,6 @@
 /web/bundles/
 .idea/
 .idea
-migrations/
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
 /phpunit.xml
