@@ -49,7 +49,7 @@
 ***
 6. . Lancement du serveur PHP depuis la racine du projet
    ```bash
-   symfony server:start --port=8000
+   symfony server:start
    ```
 7. Pour finir, rendez-vous à l'adresse: https://127.0.0.1:8000
 
