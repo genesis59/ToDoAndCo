@@ -28,7 +28,7 @@ class TaskCreateControllerTest extends WebTestCase
         $this->client->request('GET','/tasks/create');
         $this->assertResponseRedirects('/login',Response::HTTP_FOUND);
         $this->client->followRedirect();
-        $this->assertSelectorTextContains('h2', 'Connexion');
+        $this->assertSelectorTextContains('h2', $this->translator->trans('app.twig.page.security.login.sub_title'));
     }
 
     public function testGetTaskCreatePage()
@@ -58,5 +58,105 @@ class TaskCreateControllerTest extends WebTestCase
         $this->client->followRedirect();
         $this->assertSelectorTextContains('h2', $this->translator->trans('app.twig.page.task.list.sub_title_task_todo'));
         $this->assertResponseIsSuccessful();
+    }
+
+    public function testPostTaskCreatePageContentTooSmall()
+    {
+        $this->client->loginUser($this->user);
+
+        $crawler = $this->client->request('GET', '/tasks/create');
+        $form = $crawler
+            ->selectButton($this->translator->trans('app.twig.page.task.create.create_button'))
+            ->form([
+                    'task' => [
+                        'title' => 'Nouvelle tâche',
+                        'content' => 'D',
+                    ]
+                ]
+            );
+        $this->client->submit($form);
+        $this->assertSelectorTextContains('.help-block', 'Le contenu de la tâche est trop court');
+    }
+
+    public function testPostTaskCreatePageContentTooLong()
+    {
+        $this->client->loginUser($this->user);
+
+        $crawler = $this->client->request('GET', '/tasks/create');
+        $form = $crawler
+            ->selectButton($this->translator->trans('app.twig.page.task.create.create_button'))
+            ->form([
+                    'task' => [
+                        'title' => 'Nouvelle tâche',
+                        'content' => 'Dfffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffffffDffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        fffffffffffDfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffffffDfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        ffffDfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                        DfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffDfff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffDfffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffDffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffDffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffffffffffffffDffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffffffffDffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffffffffffDffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        fffffffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffff
+                        ffffffffffffffffffffffffffffffffffDfffffffffffffffffffffffffffffffffffffffff',
+                    ]
+                ]
+            );
+        $this->client->submit($form);
+        $this->assertSelectorTextContains('.help-block', 'Le contenu de la tâche est trop long');
     }
 }

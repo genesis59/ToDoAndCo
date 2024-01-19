@@ -19,6 +19,8 @@ readonly class MailerService
 
     /**
      * @param array<string,mixed> $context
+     *
+     * @throws TransportExceptionInterface
      */
     public function sendEmail(string $subject, array $context, string $template): void
     {
@@ -33,10 +35,6 @@ readonly class MailerService
                 'sign_url' => $signUrl,
             ])
         ;
-        try {
-            $this->mailer->send($email);
-        } catch (TransportExceptionInterface $e) {
-            echo $e->getMessage();
-        }
+        $this->mailer->send($email);
     }
 }

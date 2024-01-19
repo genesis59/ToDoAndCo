@@ -18,6 +18,7 @@ class TaskDeleteControllerTest extends WebTestCase
     private TranslatorInterface $translator;
     private TaskRepository $taskRepository;
     private UserRepository $userRepository;
+    private $entityManager;
     private Task $taskIsDone;
     private Task $taskIsNotDone;
 
@@ -27,6 +28,7 @@ class TaskDeleteControllerTest extends WebTestCase
         $this->translator = static::getContainer()->get(TranslatorInterface::class);
         $this->userRepository = static::getContainer()->get(UserRepository::class);
         $this->taskRepository = static::getContainer()->get(TaskRepository::class);
+        $this->entityManager = static::$kernel->getContainer()->get('doctrine')->getManager();
         $this->taskIsDone = $this->taskRepository->findOneBy(['isDone' => true]);
         $this->taskIsNotDone = $this->taskRepository->findOneBy(['isDone' => false]);
     }
@@ -36,7 +38,7 @@ class TaskDeleteControllerTest extends WebTestCase
         $this->client->request('GET', '/tasks/' . $this->taskIsDone->getUuid() . '/delete');
         $this->assertResponseRedirects('/login',Response::HTTP_FOUND);
         $this->client->followRedirect();
-        $this->assertSelectorTextContains('h2', 'Connexion');
+        $this->assertSelectorTextContains('h2', $this->translator->trans('app.twig.page.security.login.sub_title'));
     }
 
     public function testTaskIsDoneDeletionByOwner()
@@ -66,13 +68,33 @@ class TaskDeleteControllerTest extends WebTestCase
      */
     public function testTaskDeletionByNotOwner()
     {
-        $otherUser = $this->userRepository->findRandomUserNotAnonymeAnNotEqualTo($this->taskIsDone->getOwner()->getId());
+        $otherUser = $this->userRepository->findRandomUserNotAnonymeAndNotEqualTo($this->taskIsDone->getOwner()->getId());
         $this->client->loginUser($otherUser);
         $this->client->request('GET', '/tasks/' . $this->taskIsDone->getUuid() . '/delete');
+
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
         $this->client->followRedirect();
         $this->assertSelectorTextContains('.alert-danger', $this->translator->trans('app.flashes.task.user_not_authorized_to_delete'));
         $task = $this->taskRepository->findOneBy(['uuid' => $this->taskIsDone->getUuid()]);
         $this->assertNotNull($task);
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function testdeleteAnonymeTaskWithAdmin()
+    {
+        $user = $this->userRepository->findRandomUserNotAnonymeAndNotEqualTo();
+        $user->setRoles(['ROLE_ADMIN']);
+        $this->entityManager->flush();
+        $this->client->loginUser($user);
+        $anonymeTask = $this->taskRepository->findOneBy(['owner' => 1]);
+        $uuidTask = $anonymeTask->getUuid();
+        $this->assertEquals('anonyme@anonyme.anonyme',$anonymeTask->getOwner()->getEmail());
+        $this->client->request('GET', '/tasks/' . $anonymeTask->getUuid() . '/delete');
+        $this->client->followRedirect();
+        $this->assertSelectorTextContains('.alert-success', $this->translator->trans('app.flashes.task.deleted'));
+        $task = $this->taskRepository->findOneBy(['uuid' => $uuidTask]);
+        $this->assertNull($task);
     }
 }

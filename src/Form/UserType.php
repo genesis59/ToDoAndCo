@@ -15,20 +15,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserType extends AbstractType
 {
-    /**
-     * @param array<mixed> $options
-     */
-    private function getRoleData(array $options): string
-    {
-        /** @var User $user */
-        $user = $options['data'];
-        if (in_array(User::ROLE_ADMIN, $user->getRoles())) {
-            return User::ROLE_ADMIN;
-        }
-
-        return User::ROLE_USER;
-    }
-
     public function __construct(
         private readonly TranslatorInterface $translator
     ) {
@@ -69,7 +55,7 @@ class UserType extends AbstractType
                 'attr' => ['class' => 'form-select mt-1'],
                 'expanded' => false,
                 'multiple' => false,
-                'data' => $this->getRoleData($options),
+                'data' => User::ROLE_USER,
                 'choices' => [
                     $this->translator->trans('app.form.user.role_user') => User::ROLE_USER,
                     $this->translator->trans('app.form.user.role_admin') => User::ROLE_ADMIN,

@@ -19,7 +19,9 @@ readonly class TaskListener
     {
         /** @var User $user */
         $user = $this->security->getUser();
-        $task->setOwner($user);
+        if ($user !== null) {
+            $task->setOwner($user);
+        }
         $task->setUuid(Uuid::v4());
     }
 }

@@ -82,6 +82,11 @@ class Task
         return $this->createdAt;
     }
 
+    public function setCreatedAt(\DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
     public function getTitle(): ?string
     {
         return $this->title;

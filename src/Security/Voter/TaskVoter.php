@@ -21,10 +21,8 @@ class TaskVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
+        /** @var User $user */
         $user = $token->getUser();
-        if (!$user instanceof UserInterface) {
-            return false;
-        }
 
         return match ($attribute) {
             self::EDIT => $this->canEdit($subject, $user),
