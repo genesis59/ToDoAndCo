@@ -18,18 +18,14 @@ readonly class UserChecker implements UserCheckerInterface
 
     public function checkPreAuth(UserInterface $user): void
     {
-        if (!$user instanceof User) {
-            return;
-        }
-        if (!$user->isActivated()) {
+        /** @var User $owner */
+        $owner = $user;
+        if (!$owner->isActivated()) {
             throw new CustomUserMessageAccountStatusException($this->translator->trans('app.twig.page.security.login.not_already_activated'), [], 100);
         }
     }
 
     public function checkPostAuth(UserInterface $user): void
     {
-        if (!$user instanceof User) {
-            return;
-        }
     }
 }

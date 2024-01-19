@@ -16,6 +16,7 @@ app:
       created: Inscription réussie! Un message d'activation a été envoyé à votre adresse email.
       updated: L'utilisateur a bien été modifié.
       denied_access: Désolé, vous n'avez pas les autorisations pour accéder à cette partie du site.
+      not_found: Cette utilisateur n'existe pas.
     task:
       created: La tâche a été bien été ajoutée.
       updated: La tâche a bien été modifiée.
@@ -113,6 +114,7 @@ app:
           th_created_at: date de création
         edit:
           sub_title: Modifier
+          submit: Valider
         create:
           submit: Soumettre la création
           sub_title: Création d'un utilisateur

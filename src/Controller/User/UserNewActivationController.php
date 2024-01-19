@@ -45,7 +45,7 @@ class UserNewActivationController extends AbstractController
             if ($user->isActivated()) {
                 $this->addFlash('error', $translator->trans('app.flashes.new_activation.already_activation'));
 
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('app_login');
             }
 
             $token = new Token();

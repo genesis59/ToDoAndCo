@@ -8,7 +8,7 @@
     <div class="row">
         {{ form_start(form, {'action' : path('user_edit', {'uuid' : user.uuid})}) }}
         {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary pull-right mt-4">Modifier</button>
+        <button type="submit" class="btn btn-primary pull-right mt-4">{{ 'app.twig.page.user.edit.submit'|trans }}</button>
         {{ form_end(form) }}
     </div>
 {% endblock %}

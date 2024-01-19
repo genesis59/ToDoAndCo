@@ -87,14 +87,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @throws NonUniqueResultException
      */
-    public function findRandomUserNotAnonymeAnNotEqualTo(int $userId): ?User
+    public function findRandomUserNotAnonymeAndNotEqualTo(int $userId = null): ?User
     {
-        return $this->createQueryBuilder('u')
-            ->where('u.id != 1')
-            ->andWhere('u.id != :userId')
-            ->setParameter('userId', $userId)
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
+        $qb = $this->createQueryBuilder('u')
+            ->where('u.id != 1');
+        if ($userId) {
+            $qb->andWhere('u.id != :userId')
+                ->setParameter('userId', $userId);
+        }
+
+        return $qb->setMaxResults(1)
+        ->getQuery()
+        ->getOneOrNullResult();
     }
 }

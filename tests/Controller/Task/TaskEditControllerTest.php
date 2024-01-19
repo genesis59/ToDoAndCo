@@ -36,7 +36,7 @@ class TaskEditControllerTest extends WebTestCase
         $this->client->request('GET', '/tasks/' . $this->taskIsDone->getUuid() . '/edit');
         $this->assertResponseRedirects('/login',Response::HTTP_FOUND);
         $this->client->followRedirect();
-        $this->assertSelectorTextContains('h2', 'Connexion');
+        $this->assertSelectorTextContains('h2', $this->translator->trans('app.twig.page.security.login.sub_title'));
     }
 
     public function testTaskIsNotDoneEditByOwner()
@@ -91,7 +91,7 @@ class TaskEditControllerTest extends WebTestCase
      */
     public function testTaskDeletionByNotOwner()
     {
-        $otherUser = $this->userRepository->findRandomUserNotAnonymeAnNotEqualTo($this->taskIsDone->getOwner()->getId());
+        $otherUser = $this->userRepository->findRandomUserNotAnonymeAndNotEqualTo($this->taskIsDone->getOwner()->getId());
         $this->client->loginUser($otherUser);
         $this->client->request('GET', '/tasks/' . $this->taskIsNotDone->getUuid() . '/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);

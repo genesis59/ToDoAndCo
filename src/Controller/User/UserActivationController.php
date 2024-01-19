@@ -26,11 +26,13 @@ class UserActivationController extends AbstractController
         Request $request
     ): Response {
         if (!$uriSigner->checkRequest($request)) {
-            $this->addFlash('danger', $translator->trans('app.flashes.activation.invalid_token'));
+            $this->addFlash('error', $translator->trans('app.flashes.activation.invalid_token'));
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('app_login');
         }
         if ($this->getUser()) {
+            $this->addFlash('success', $translator->trans('app.flashes.activation.already_activation'));
+
             return $this->redirectToRoute('homepage');
         }
         /** @var User $user */
@@ -38,25 +40,25 @@ class UserActivationController extends AbstractController
         /** @var Token $token */
         $token = $tokenRepository->findOneBy(['token' => $token]);
         if ($user == null || $token == null) {
-            $this->addFlash('danger', $translator->trans('app.flashes.activation.error'));
+            $this->addFlash('error', $translator->trans('app.flashes.activation.error'));
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('app_login');
         }
 
         if ($user->isActivated()) {
-            $this->addFlash('info', $translator->trans('app.flashes.activation.already_activation'));
+            $this->addFlash('success', $translator->trans('app.flashes.activation.already_activation'));
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('app_login');
         }
 
         if ($token->getExpiredAt() < (new \DateTimeImmutable())) {
-            $this->addFlash('danger', $translator->trans('app.flashes.activation.activation_time'));
+            $this->addFlash('error', $translator->trans('app.flashes.activation.activation_time'));
 
             return $this->redirectToRoute('user_new_activation');
         }
         $userRepository->activate($user);
         $this->addFlash('success', $translator->trans('app.flashes.activation.success'));
 
-        return $this->redirectToRoute('homepage');
+        return $this->redirectToRoute('app_login');
     }
 }

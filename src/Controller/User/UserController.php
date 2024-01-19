@@ -25,12 +25,11 @@ class UserController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
         $paginationError = $paginatorService->create($userRepository, $request, 'user_list');
+
         if ($paginationError) {
             $this->addFlash('error', $paginationError['message']);
-            $response = $this->render('task/list_todo.html.twig', ['tasks' => null]);
-            $response->setStatusCode(intval($paginationError['code']));
 
-            return $response;
+            return $this->redirectToRoute('homepage');
         }
         $parameters = [
             'users' => $paginatorService->getData(),
