@@ -21,7 +21,8 @@ readonly class UserChecker implements UserCheckerInterface
         /** @var User $owner */
         $owner = $user;
         if (!$owner->isActivated()) {
-            throw new CustomUserMessageAccountStatusException($this->translator->trans('app.twig.page.security.login.not_already_activated'), [], 100);
+            $message = $this->translator->trans('app.twig.page.security.login.not_already_activated');
+            throw new CustomUserMessageAccountStatusException($message, [], 100);
         }
     }
 
