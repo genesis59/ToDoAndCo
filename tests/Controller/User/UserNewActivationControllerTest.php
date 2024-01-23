@@ -94,7 +94,7 @@ class UserNewActivationControllerTest extends WebTestCase
     {
         $this->client->loginUser($this->user);
 
-        $crawler = $this->client->request('GET', '/users/new-activation');
+        $this->client->request('GET', '/users/new-activation');
 
         $this->assertResponseRedirects('/', Response::HTTP_FOUND);
         $this->client->followRedirect();

@@ -119,7 +119,7 @@ class UserActivationControllerTest extends WebTestCase
             UrlGeneratorInterface::ABSOLUTE_URL
         );
         $uriSignee = $this->uriSigner->sign($url);
-        $crawler = $this->client->request('GET', $uriSignee);
+        $this->client->request('GET', $uriSignee);
         $this->assertResponseRedirects('/');
         $this->client->followRedirect();
 

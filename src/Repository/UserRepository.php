@@ -46,7 +46,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @return User[] Returns an array of Customer objects
      */
-    public function searchAndPaginate(?int $limit, ?int $offset, string $routeName = null, string $search = null): array
+    public function searchAndPaginate(?int $limit, ?int $offset, string $search = null): array
     {
         $qb = $this->createQueryBuilder('u');
 
