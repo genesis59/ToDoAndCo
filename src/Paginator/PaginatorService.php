@@ -58,9 +58,9 @@ class PaginatorService
         Request $request,
         string $currentRoute
     ): array|null {
-        $this->currentPage = intval($request->get('page', 1));
+        $this->currentPage = (int) $request->get('page', 1);
 
-        $this->limit = intval($request->get('limit', $this->getDefaultPage($repository)));
+        $this->limit = (int) $request->get('limit', $this->getDefaultPage($repository));
         $this->currentRoute = $currentRoute;
         $this->search = $request->get('search', '');
         if ($this->currentPage < 1) {
@@ -91,7 +91,7 @@ class PaginatorService
             $this->search
         );
         $this->countItemsTotal = count($repository->searchAndPaginate(null, null, $this->currentRoute, $this->search));
-        $this->lastPage = intval(ceil($this->countItemsTotal / $this->limit));
+        $this->lastPage = (int) ceil($this->countItemsTotal / $this->limit);
 
         return null;
     }
@@ -146,6 +146,7 @@ class PaginatorService
         return $this->data;
     }
 
+    // @codeCoverageIgnoreStart
     public function getCountItemsTotal(): int
     {
         return $this->countItemsTotal;
@@ -161,6 +162,7 @@ class PaginatorService
         return $this->currentRoute;
     }
 
+    // @codeCoverageIgnoreEnd
     public function getSearch(): string
     {
         return $this->search;

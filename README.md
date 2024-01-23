@@ -36,7 +36,7 @@
         - MAILER_DSN
     3. Exemple pour la variable DATABASE_URL avec une base de données PosgreSQL et MAILER_DSN dans le fichier .env exemples avec une base de données MySQL et MailHog:
    ```php
-   DATABASE_URL="postgresql://user_name:your_password@localhost:5432/bilemo?serverVersion=15&charset=utf8"
+   DATABASE_URL="postgresql://user_name:your_password@localhost:5432/todo_and_co?serverVersion=15&charset=utf8"
    MAILER_DSN=smtp://localhost:1025
    ```
 5. Configuration de la base de données locale :
