@@ -13,7 +13,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserNewActivationController extends AbstractController
@@ -23,7 +22,6 @@ class UserNewActivationController extends AbstractController
         Request $request,
         UserRepository $userRepository,
         TokenRepository $tokenRepository,
-        TokenGeneratorInterface $tokenGenerator,
         EventDispatcherInterface $dispatcher,
         TranslatorInterface $translator,
     ): Response {

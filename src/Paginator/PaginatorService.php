@@ -87,10 +87,9 @@ class PaginatorService
         $this->data = $repository->searchAndPaginate(
             $this->limit,
             ($this->currentPage - 1) * $this->limit,
-            $this->currentRoute,
             $this->search
         );
-        $this->countItemsTotal = count($repository->searchAndPaginate(null, null, $this->currentRoute, $this->search));
+        $this->countItemsTotal = count($repository->searchAndPaginate(null, null, $this->search));
         $this->lastPage = (int) ceil($this->countItemsTotal / $this->limit);
 
         return null;
