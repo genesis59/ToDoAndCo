@@ -14,13 +14,20 @@ class TaskToggleController extends AbstractController
     #[Route(path: '/tasks/{uuid}/toggle', name: 'task_toggle')]
     public function __invoke(Task $task, ManagerRegistry $managerRegistry, TranslatorInterface $translator): Response
     {
-        $task->toggle(!$task->isDone());
-        $routeName = 'task_list_finished';
+        $routeName = 'task_list_todo';
         $message = 'app.flashes.task.is_not_done';
         if ($task->isDone()) {
             $message = 'app.flashes.task.is_done';
-            $routeName = 'task_list_todo';
+            $routeName = 'task_list_finished';
         }
+
+        if ($this->getUser() !== $task->getOwner()) {
+            $this->addFlash('error', $translator->trans('app.flashes.task.error_toggle'));
+
+            return $this->redirectToRoute($routeName);
+        }
+        $task->toggle(!$task->isDone());
+
         $managerRegistry->getManager()->flush();
         $this->addFlash('success', $translator->trans($message, ['%task%' => $task->getTitle()]));
 

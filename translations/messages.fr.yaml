@@ -18,6 +18,7 @@ app:
       denied_access: Désolé, vous n'avez pas les autorisations pour accéder à cette partie du site.
       not_found: Cette utilisateur n'existe pas.
     task:
+      error_toggle: Cette tâche n'existe pas
       created: La tâche a été bien été ajoutée.
       updated: La tâche a bien été modifiée.
       deleted: La tâche a bien été supprimée.
