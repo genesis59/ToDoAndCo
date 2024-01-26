@@ -1,4 +1,4 @@
-# ToDoAndCo [![Codacy Badge](https://app.codacy.com/project/badge/Grade/478aec0b55184ab5a9ed477a942c7966)](https://app.codacy.com/gh/genesis59/ToDoAndCo/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+# ToDoAndCo [![Codacy Badge](https://app.codacy.com/project/badge/Grade/31f21769d9c1472387730ed984831b8f)](https://app.codacy.com/gh/genesis59/ToDoAndCo/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 ## Environnement de développement
 ### Prérequis
 * git https://git-scm.com/downloads
