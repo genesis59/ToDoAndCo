@@ -1,4 +1,5 @@
 framework:
+    enabled_locales: [ 'fr' ]
     default_locale: fr
     translator:
         default_path: '%kernel.project_dir%/translations'

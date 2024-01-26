@@ -4,32 +4,59 @@ namespace App\Controller\Task;
 
 use App\Paginator\PaginatorService;
 use App\Repository\TaskRepository;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class TaskFinishedController extends AbstractController
 {
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route(path: '/tasks/finished', name: 'task_list_finished')]
-    public function __invoke(Request $request, TaskRepository $taskRepository, PaginatorService $paginatorService): Response
-    {
-        $paginationError = $paginatorService->create($taskRepository, $request, 'task_list_finished');
-        if ($paginationError) {
-            $this->addFlash('error', $paginationError['message']);
+    public function __invoke(
+        Request $request,
+        TaskRepository $taskRepository,
+        PaginatorService $paginatorService,
+        TagAwareCacheInterface $cache
+    ): Response {
+        $key = sprintf(
+            'tasksFinished-%s-%s-%s',
+            intval($request->get('page', 1)),
+            intval($request->get('limit', $this->getParameter('default_task_per_page'))),
+            $request->get('q', '')
+        );
+        $parameters = $cache->get(
+            $key,
+            function (ItemInterface $item) use ($paginatorService, $taskRepository, $request) {
+                $item->tag('tasksFinishedCache');
+                $item->expiresAfter(random_int(0, 300) + 3300);
+                $paginationError = $paginatorService->create($taskRepository, $request, 'task_list_finished');
+                if ($paginationError) {
+                    $this->addFlash('error', $paginationError['message']);
 
-            return $this->redirectToRoute('homepage');
+                    return $this->redirectToRoute('homepage');
+                }
+
+                return [
+                    'tasks' => $paginatorService->getData(),
+                    'search' => $paginatorService->getSearch(),
+                    'currentPage' => $paginatorService->getCurrentPage(),
+                    'currentLimit' => $paginatorService->getLimit(),
+                    'firstPage' => $paginatorService->getUrlFirstPage(),
+                    'lastPage' => $paginatorService->getUrlLastPage(),
+                    'nextPage' => $paginatorService->getUrlNextPage(),
+                    'previousPage' => $paginatorService->getUrlPreviousPage(),
+                ];
+            }
+        );
+        if (!is_array($parameters)) {
+            $parameters = [];
         }
-        $parameters = [
-            'tasks' => $paginatorService->getData(),
-            'search' => $paginatorService->getSearch(),
-            'currentPage' => $paginatorService->getCurrentPage(),
-            'currentLimit' => $paginatorService->getLimit(),
-            'firstPage' => $paginatorService->getUrlFirstPage(),
-            'lastPage' => $paginatorService->getUrlLastPage(),
-            'nextPage' => $paginatorService->getUrlNextPage(),
-            'previousPage' => $paginatorService->getUrlPreviousPage(),
-        ];
         if ($request->query->get('preview')) {
             return $this->render('components/task/_tasks.html.twig', $parameters);
         }
