@@ -26,8 +26,8 @@ class TaskFinishedController extends AbstractController
     ): Response {
         $key = sprintf(
             'tasksFinished-%s-%s-%s',
-            intval($request->get('page', 1)),
-            intval($request->get('limit', $this->getParameter('default_task_per_page'))),
+            (int) $request->get('page', 1),
+            (int) $request->get('limit', $this->getParameter('default_task_per_page')),
             $request->get('q', '')
         );
         $parameters = $cache->get(

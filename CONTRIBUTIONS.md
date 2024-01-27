@@ -1,5 +1,3 @@
-trad - git pull req - php stan cs fix - test - norme de nommage
-
 # How contribute to this project?
 
 ## Good practice for the remote repository
@@ -21,7 +19,7 @@ Once your work finished you need to push your update on the remote repository:
    git push -u origin your_branch_name
    ```
 
-### Test
+### Tests
 we want the application to be robust and avoid new changes modifying existing behaviour, so
 we need test our application and maintain over 70% coverage
 to launch the tests already in place
