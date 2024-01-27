@@ -51,9 +51,7 @@ class UserActivationControllerTest extends WebTestCase
         $this->translator = static::getContainer()->get(TranslatorInterface::class);
         $this->urlGenerator = static::getContainer()->get(UrlGeneratorInterface::class);
         $this->uriSigner = static::getContainer()->get(UriSigner::class);
-        $userRepository = static::getContainer()->get(UserRepository::class);
         $this->entityManager = static::$kernel->getContainer()->get('doctrine')->getManager();
-        $this->user = $userRepository->findOneByEmail('anonyme@anonyme.anonyme');
     }
 
     /**

@@ -30,37 +30,41 @@ class TaskFinishedController extends AbstractController
             (int) $request->get('limit', $this->getParameter('default_task_per_page')),
             $request->get('q', '')
         );
-        $parameters = $cache->get(
+        $result = $cache->get(
             $key,
             function (ItemInterface $item) use ($paginatorService, $taskRepository, $request) {
                 $item->tag('tasksFinishedCache');
                 $item->expiresAfter(random_int(0, 300) + 3300);
                 $paginationError = $paginatorService->create($taskRepository, $request, 'task_list_finished');
-                if ($paginationError) {
-                    $this->addFlash('error', $paginationError['message']);
-
-                    return $this->redirectToRoute('homepage');
+                $parameters = [];
+                if (!$paginationError) {
+                    $parameters = [
+                        'tasks' => $paginatorService->getData(),
+                        'search' => $paginatorService->getSearch(),
+                        'currentPage' => $paginatorService->getCurrentPage(),
+                        'currentLimit' => $paginatorService->getLimit(),
+                        'firstPage' => $paginatorService->getUrlFirstPage(),
+                        'lastPage' => $paginatorService->getUrlLastPage(),
+                        'nextPage' => $paginatorService->getUrlNextPage(),
+                        'previousPage' => $paginatorService->getUrlPreviousPage(),
+                    ];
                 }
 
                 return [
-                    'tasks' => $paginatorService->getData(),
-                    'search' => $paginatorService->getSearch(),
-                    'currentPage' => $paginatorService->getCurrentPage(),
-                    'currentLimit' => $paginatorService->getLimit(),
-                    'firstPage' => $paginatorService->getUrlFirstPage(),
-                    'lastPage' => $paginatorService->getUrlLastPage(),
-                    'nextPage' => $paginatorService->getUrlNextPage(),
-                    'previousPage' => $paginatorService->getUrlPreviousPage(),
+                    'errors' => $paginationError,
+                    'parameters' => $parameters,
                 ];
             }
         );
-        if (!is_array($parameters)) {
-            $parameters = [];
+        if ($result['errors'] !== null) {
+            $this->addFlash('error', $result['errors']['message']);
+
+            return $this->redirectToRoute('homepage');
         }
         if ($request->query->get('preview')) {
-            return $this->render('components/task/_tasks.html.twig', $parameters);
+            return $this->render('components/task/_tasks.html.twig', $result['parameters']);
         }
 
-        return $this->render('task/tasks_finished.html.twig', $parameters);
+        return $this->render('task/tasks_finished.html.twig', $result['parameters']);
     }
 }
