@@ -25,8 +25,7 @@ class TaskEditController extends AbstractController
         TranslatorInterface $translator,
         ManagerRegistry $managerRegistry,
         TagAwareCacheInterface $cache
-    ): Response
-    {
+    ): Response {
         $routeName = 'task_list_todo';
         if ($task->isDone()) {
             $routeName = 'task_list_finished';

@@ -22,8 +22,7 @@ class TaskToggleController extends AbstractController
         ManagerRegistry $managerRegistry,
         TranslatorInterface $translator,
         TagAwareCacheInterface $cache
-    ): Response
-    {
+    ): Response {
         $routeName = 'task_list_todo';
         $message = 'app.flashes.task.is_not_done';
         if ($task->isDone()) {
@@ -33,6 +32,7 @@ class TaskToggleController extends AbstractController
 
         if ($this->getUser() !== $task->getOwner()) {
             $this->addFlash('error', $translator->trans('app.flashes.task.error_toggle'));
+
             return $this->redirectToRoute($routeName);
         }
         $cache->invalidateTags(['tasksFinishedCache']);

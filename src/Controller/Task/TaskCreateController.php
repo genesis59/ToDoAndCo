@@ -24,9 +24,7 @@ class TaskCreateController extends AbstractController
         ManagerRegistry $managerRegistry,
         TranslatorInterface $translator,
         TagAwareCacheInterface $cache
-    ): Response
-    {
-
+    ): Response {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);

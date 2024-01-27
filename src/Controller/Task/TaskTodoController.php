@@ -41,6 +41,7 @@ class TaskTodoController extends AbstractController
 
                     return $this->redirectToRoute('homepage');
                 }
+
                 return [
                     'tasks' => $paginatorService->getData(),
                     'search' => $paginatorService->getSearch(),
