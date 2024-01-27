@@ -5,16 +5,27 @@ namespace App\Controller\Task;
 use App\Entity\Task;
 use App\Form\TaskType;
 use Doctrine\Persistence\ManagerRegistry;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TaskEditController extends AbstractController
 {
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route(path: '/tasks/{uuid}/edit', name: 'task_edit')]
-    public function __invoke(Task $task, Request $request, TranslatorInterface $translator, ManagerRegistry $managerRegistry): Response
+    public function __invoke(
+        Task $task,
+        Request $request,
+        TranslatorInterface $translator,
+        ManagerRegistry $managerRegistry,
+        TagAwareCacheInterface $cache
+    ): Response
     {
         $routeName = 'task_list_todo';
         if ($task->isDone()) {
@@ -29,6 +40,8 @@ class TaskEditController extends AbstractController
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $cache->invalidateTags(['tasksFinishedCache']);
+            $cache->invalidateTags(['tasksTodoCache']);
             $task->setUpdatedAt(new \DateTimeImmutable());
             $managerRegistry->getManager()->flush();
             $this->addFlash('success', $translator->trans('app.flashes.task.updated'));
