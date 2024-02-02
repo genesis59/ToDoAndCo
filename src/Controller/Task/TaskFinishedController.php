@@ -33,7 +33,7 @@ class TaskFinishedController extends AbstractController
             'tasksFinished-%s-%s-%s-%s',
             (int) $request->get('page', 1),
             (int) $request->get('limit', $this->getParameter('default_task_per_page')),
-            $request->get('q', ''),
+            $request->get('search', ''),
             $user->getUuid()
         );
         $result = $cache->get(
