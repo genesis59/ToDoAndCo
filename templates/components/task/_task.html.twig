@@ -65,7 +65,7 @@
                     <p class="card-text text-justify align-self-center">{{ task.content|raw }}</p>
                 </div>
                 <div class="task-card-button-box">
-                    {% if task.owner.id != 1 %}
+                    {% if task.owner.id != unknownUserId %}
                         <form action="{{ path('task_toggle', {'uuid' : task.uuid }) }}">
                             <button class="btn btn-primary btn-sm">
                                 {% if task.isDone %}

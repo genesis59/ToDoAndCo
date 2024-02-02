@@ -2,8 +2,10 @@
 
 namespace App\Controller\Task;
 
+use App\Entity\User;
 use App\Paginator\PaginatorService;
 use App\Repository\TaskRepository;
+use App\Repository\UserRepository;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,17 +24,22 @@ class TaskFinishedController extends AbstractController
         Request $request,
         TaskRepository $taskRepository,
         PaginatorService $paginatorService,
-        TagAwareCacheInterface $cache
+        TagAwareCacheInterface $cache,
+        UserRepository $userRepository
     ): Response {
+        /** @var User $user */
+        $user = $this->getUser();
         $key = sprintf(
-            'tasksFinished-%s-%s-%s',
+            'tasksFinished-%s-%s-%s-%s',
             (int) $request->get('page', 1),
             (int) $request->get('limit', $this->getParameter('default_task_per_page')),
-            $request->get('q', '')
+            $request->get('q', ''),
+            $user->getUuid()
         );
         $result = $cache->get(
             $key,
-            function (ItemInterface $item) use ($paginatorService, $taskRepository, $request) {
+            function (ItemInterface $item) use ($paginatorService, $taskRepository, $userRepository, $request) {
+                $unKnownUser = $userRepository->findOneBy(['email' => 'anonyme@anonyme.anonyme']);
                 $item->tag('tasksFinishedCache');
                 $item->expiresAfter(random_int(0, 300) + 3300);
                 $paginationError = $paginatorService->create($taskRepository, $request, 'task_list_finished');
@@ -47,6 +54,7 @@ class TaskFinishedController extends AbstractController
                         'lastPage' => $paginatorService->getUrlLastPage(),
                         'nextPage' => $paginatorService->getUrlNextPage(),
                         'previousPage' => $paginatorService->getUrlPreviousPage(),
+                        'unknownUserId' => $unKnownUser->getId(),
                     ];
                 }
 
