@@ -18,8 +18,11 @@ use Symfony\Bundle\SecurityBundle\Security;
  */
 class TaskRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, private readonly Security $security)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        private readonly Security $security,
+        private readonly UserRepository $userRepository
+    ) {
         parent::__construct($registry, Task::class);
     }
 
@@ -33,8 +36,9 @@ class TaskRepository extends ServiceEntityRepository
         $exprUser = 't.owner = :user';
         $parameters['user'] = $this->security->getUser();
         if (in_array(User::ROLE_ADMIN, $this->security->getUser()->getRoles())) {
-            $exprUser = 't.owner = :user OR t.owner = :anonyme';
-            $parameters['anonyme'] = 1;
+            $unknownUser = $this->userRepository->findOneBy(['email' => 'anonyme@anonyme.anonyme']);
+            $exprUser = 't.owner = :user or t.owner = :anonyme';
+            $parameters['anonyme'] = $unknownUser->getId();
         }
         $qb = $this->createQueryBuilder('t')->where($exprUser);
         // Recherche
